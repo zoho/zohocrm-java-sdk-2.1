@@ -66,16 +66,23 @@ public class FileStore implements TokenStore
 						
 						String redirectURL = (nextRecord[8] != null && !nextRecord[8].isEmpty())? nextRecord[8] : null;
 						
-						oauthToken = new OAuthToken.Builder().clientID(nextRecord[2]).clientSecret(nextRecord[3])
-								.grantToken(grantToken).refreshToken(nextRecord[4]).redirectURL(redirectURL).build();
-						
 						oauthToken.setId(nextRecord[0]);
 						
 						oauthToken.setUserMail(nextRecord[1]);
 						
+						oauthToken.setClientId(nextRecord[2]);
+						
+						oauthToken.setClientSecret(nextRecord[3]);
+						
+						oauthToken.setRefreshToken(nextRecord[4]);
+						
 						oauthToken.setAccessToken(nextRecord[5]);
 						
+						oauthToken.setGrantToken(grantToken);
+						
 						oauthToken.setExpiresIn(String.valueOf(nextRecord[7]));
+						
+						oauthToken.setRedirectURL(redirectURL);
 						
 						return oauthToken;
 					}
@@ -194,18 +201,20 @@ public class FileStore implements TokenStore
 				
 				String redirectURL = (nextRecord[8] != null && !nextRecord[8].isEmpty())? nextRecord[8] : null;
 				
-				OAuthToken oauthtoken = new OAuthToken.Builder().clientID(nextRecord[2]).clientSecret(nextRecord[3])
-						.grantToken(grantToken).refreshToken(nextRecord[4]).redirectURL(redirectURL).build();
+				OAuthToken oauthToken = new OAuthToken.Builder().clientID(nextRecord[2]).clientSecret(nextRecord[3])
+						.refreshToken(nextRecord[4]).grantToken(grantToken).build();
 				
-				oauthtoken.setId(nextRecord[0]);
+				oauthToken.setId(nextRecord[0]);
 				
-				oauthtoken.setUserMail(nextRecord[1]);
+				oauthToken.setUserMail(nextRecord[1]);
+																
+				oauthToken.setAccessToken(nextRecord[5]);
 				
-				oauthtoken.setAccessToken(nextRecord[5]);
+				oauthToken.setExpiresIn(String.valueOf(nextRecord[7]));
 				
-				oauthtoken.setExpiresIn(String.valueOf(nextRecord[7]));
+				oauthToken.setRedirectURL(redirectURL);
 				
-				tokens.add(oauthtoken);
+				tokens.add(oauthToken);
 			}
 		}
 		catch (Exception ex)
@@ -229,7 +238,6 @@ public class FileStore implements TokenStore
 		{
 			throw new SDKException(Constants.TOKEN_STORE, Constants.DELETE_TOKENS_FILE_ERROR, ex);
 		}
-		
 	}
 	
 	private Boolean checkTokenExists(String email, OAuthToken oauthToken, String[] row) throws SDKException
@@ -280,17 +288,24 @@ public class FileStore implements TokenStore
 						
 						String redirectURL = (nextRecord[8] != null && !nextRecord[8].isEmpty())? nextRecord[8] : null;
 						
-						oauthToken = new OAuthToken.Builder().clientID(nextRecord[2]).clientSecret(nextRecord[3])
-								.grantToken(grantToken).refreshToken(nextRecord[4]).redirectURL(redirectURL).build();
-						
 						oauthToken.setId(nextRecord[0]);
 						
 						oauthToken.setUserMail(nextRecord[1]);
 						
+						oauthToken.setClientId(nextRecord[2]);
+						
+						oauthToken.setClientSecret(nextRecord[3]);
+						
+						oauthToken.setRefreshToken(nextRecord[4]);
+						
 						oauthToken.setAccessToken(nextRecord[5]);
+						
+						oauthToken.setGrantToken(grantToken);
 						
 						oauthToken.setExpiresIn(String.valueOf(nextRecord[7]));
 						
+						oauthToken.setRedirectURL(redirectURL);
+
 						return oauthToken;
 					}
 				}
@@ -312,5 +327,4 @@ public class FileStore implements TokenStore
 
 		return null;
 	}
-
 }

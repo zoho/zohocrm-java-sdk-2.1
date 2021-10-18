@@ -48,7 +48,7 @@ public class JSONConverter extends Converter
 	}
 
 	@Override
-	public Object formRequest(Object requestInstance, String pack, Integer instanceNumber, JSONObject memberDetail) throws Exception// if structure
+	public Object formRequest(Object requestInstance, String pack, Integer instanceNumber, JSONObject memberDetail) throws Exception // if structure
 	{
 		JSONObject classDetail = (JSONObject) Initializer.jsonDetails.get(pack);
 
@@ -174,7 +174,14 @@ public class JSONConverter extends Converter
 
 					if (requestInstance instanceof FileDetails)
 					{
-						requestJSON.put(keyName.toLowerCase(), (fieldValue != null ? fieldValue : JSONObject.NULL));
+						if (fieldValue == null || (fieldValue instanceof String && fieldValue.toString().equalsIgnoreCase("null")))
+						{
+							requestJSON.put(keyName.toLowerCase(),JSONObject.NULL);
+						}
+						else
+						{
+							requestJSON.put(keyName.toLowerCase(),fieldValue);
+						}
 					}
 					else
 					{
@@ -309,9 +316,9 @@ public class JSONConverter extends Converter
 		{
 			this.commonAPIHandler.setModuleAPIName(null);
 
-			JSONObject fullDetail = Utility.searchJSONDetails(moduleAPIName);// to get correct moduleapiname in proper format
+			JSONObject fullDetail = Utility.searchJSONDetails(moduleAPIName);// to get correct module api-name in proper format
 
-			if (fullDetail != null)// from Jsondetails
+			if (fullDetail != null)// from Json details
 			{
 				moduleDetail = fullDetail.getJSONObject(Constants.MODULEDETAILS);
 			}
@@ -640,7 +647,7 @@ public class JSONConverter extends Converter
 		{
 			JSONArray classes = classDetail.getJSONArray(Constants.CLASSES);
 
-			instance = findMatch(classes, responseJson);// find match returns instance(calls getresponse() recursively)
+			instance = findMatch(classes, responseJson);// find match returns instance(calls getResponse() recursively)
 		}
 		else
 		{
@@ -697,7 +704,7 @@ public class JSONConverter extends Converter
 
 	private Object isRecordResponse(JSONObject responseJson, JSONObject classDetail, String pack) throws JSONException, Exception
 	{
-		Object recordInstance = Class.forName(pack).newInstance();
+		Object recordInstance = Class.forName(pack).getDeclaredConstructor().newInstance();
 
 		String moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
@@ -707,13 +714,13 @@ public class JSONConverter extends Converter
 		{
 			this.commonAPIHandler.setModuleAPIName(null);
 
-			JSONObject fullDetail = Utility.searchJSONDetails(moduleAPIName);// to get correct moduleapiname in proper format
+			JSONObject fullDetail = Utility.searchJSONDetails(moduleAPIName);// to get correct moduleAPIName in proper format
 
-			if (fullDetail != null)// from Jsondetails
+			if (fullDetail != null)// from Json details
 			{
 				moduleDetail = fullDetail.getJSONObject(Constants.MODULEDETAILS);
 
-				recordInstance = Class.forName(fullDetail.getString(Constants.MODULEPACKAGENAME)).newInstance();
+				recordInstance = Class.forName(fullDetail.getString(Constants.MODULEPACKAGENAME)).getDeclaredConstructor().newInstance();
 			}
 			else// from user spec
 			{
@@ -1056,9 +1063,9 @@ public class JSONConverter extends Converter
 		return matches / totalPoints;
 	}
 
-	public String buildName(String memberName)
+	public String buildName(String keyName)
 	{
-		List<String> name = Arrays.asList(memberName.split("_"));
+		List<String> name = Arrays.asList(keyName.toLowerCase().split("_"));
 
 		String sdkName = new String();
 

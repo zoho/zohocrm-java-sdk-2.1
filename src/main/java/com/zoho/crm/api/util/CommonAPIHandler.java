@@ -311,7 +311,7 @@ public class CommonAPIHandler
 
 		try
 		{
-			connector.addHeader(Constants.ZOHO_SDK, System.getProperty("os.name") + "/" + System.getProperty("os.version") + " Java/" + System.getProperty("java.version") + ":" + Constants.SDK_VERSION);
+			connector.addHeader(Constants.ZOHO_SDK, System.getProperty("os.name") + "/" + System.getProperty("os.version") + "/java-2.1/" + System.getProperty("java.version") + ":" + Constants.SDK_VERSION);
 
 			HttpResponse response = connector.fireRequest(convertInstance);
 

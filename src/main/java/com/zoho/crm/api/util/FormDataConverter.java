@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +80,7 @@ public class FormDataConverter extends Converter
 			
 			Object fieldValue = field.get(requestInstance);
 
-			if (modification != null && (Integer)modification != 0 && this.valueChecker(requestInstance.getClass().getSimpleName(), memberName, memberDetail, fieldValue, uniqueValuesMap, instanceNumber) == true)
+			if (modification != null && (Integer)modification != 0 && fieldValue != null && this.valueChecker(requestInstance.getClass().getSimpleName(), memberName, memberDetail, fieldValue, uniqueValuesMap, instanceNumber) == true)
 			{
 				String keyName = (String) memberDetail.get(Constants.NAME);
 				
@@ -285,14 +284,12 @@ public class FormDataConverter extends Converter
 	@Override
 	public Object getWrappedResponse(Object response, String pack) throws Exception
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
 	public Object getResponse(Object response, String pack) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException, SecurityException, UnsupportedOperationException, IOException
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

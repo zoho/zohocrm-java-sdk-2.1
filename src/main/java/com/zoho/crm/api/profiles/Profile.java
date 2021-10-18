@@ -28,8 +28,6 @@ public class Profile implements Model
 
 	private Long id;
 
-	private Boolean category;
-
 	private Boolean custom;
 
 	private User createdBy;
@@ -260,28 +258,6 @@ public class Profile implements Model
 		 this.id = id;
 
 		 this.keyModified.put("id", 1);
-
-	}
-
-	/**
-	 * The method to get the value of category
-	 * @return A Boolean representing the category
-	 */
-	public Boolean getCategory()
-	{
-		return  this.category;
-
-	}
-
-	/**
-	 * The method to set the value to category
-	 * @param category A Boolean representing the category
-	 */
-	public void setCategory(Boolean category)
-	{
-		 this.category = category;
-
-		 this.keyModified.put("category", 1);
 
 	}
 

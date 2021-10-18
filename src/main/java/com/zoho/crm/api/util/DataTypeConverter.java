@@ -210,7 +210,12 @@ public class DataTypeConverter
 	{
 		init();
 		
-		return (R) PRE_CONVERTER_MAP.get(type).convert(obj);
+		if(PRE_CONVERTER_MAP.containsKey(type))
+		{
+			return (R) PRE_CONVERTER_MAP.get(type).convert(obj);
+		}
+
+		return (R) obj; 
 	}
 
 	/**
@@ -226,7 +231,12 @@ public class DataTypeConverter
 	{
 		init();
 		
-		return ((PostConverter<R>) POST_CONVERTER_MAP.get(type)).convert(obj);
+		if(POST_CONVERTER_MAP.containsKey(type))
+		{
+			return ((PostConverter<R>) POST_CONVERTER_MAP.get(type)).convert(obj);
+		}
+
+		return obj; 
 	}
 	
 	/**

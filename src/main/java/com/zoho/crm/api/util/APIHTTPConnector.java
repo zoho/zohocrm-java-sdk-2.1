@@ -143,7 +143,7 @@ public class APIHTTPConnector
 	 */
 	public void addHeader(String headerName, String headerValue)
 	{
-		this.headers.put(headerName, headerValue) ;
+		this.headers.put(headerName, headerValue);
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class APIHTTPConnector
 	 */
 	public void addParam(String paramName, String paramValue)
 	{
-		this.parameters.put(paramName, paramValue) ;
+		this.parameters.put(paramName, paramValue);
 	}
 
 	/**

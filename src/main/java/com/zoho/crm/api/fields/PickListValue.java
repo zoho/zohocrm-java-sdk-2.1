@@ -8,19 +8,25 @@ public class PickListValue implements Model
 {
 	private String displayValue;
 
+	private Integer probability;
+
+	private Long forecastCategory;
+
+	private String actualValue;
+
+	private Long id;
+
+	private String forecastType;
+
 	private Integer sequenceNumber;
 
 	private String expectedDataType;
 
 	private List<Maps> maps;
 
-	private String actualValue;
-
 	private String sysRefName;
 
 	private String type;
-
-	private Long id;
 
 	private HashMap<String, Integer> keyModified = new HashMap<String, Integer>();
 
@@ -44,6 +50,116 @@ public class PickListValue implements Model
 		 this.displayValue = displayValue;
 
 		 this.keyModified.put("display_value", 1);
+
+	}
+
+	/**
+	 * The method to get the value of probability
+	 * @return An Integer representing the probability
+	 */
+	public Integer getProbability()
+	{
+		return  this.probability;
+
+	}
+
+	/**
+	 * The method to set the value to probability
+	 * @param probability An Integer representing the probability
+	 */
+	public void setProbability(Integer probability)
+	{
+		 this.probability = probability;
+
+		 this.keyModified.put("probability", 1);
+
+	}
+
+	/**
+	 * The method to get the value of forecastCategory
+	 * @return A Long representing the forecastCategory
+	 */
+	public Long getForecastCategory()
+	{
+		return  this.forecastCategory;
+
+	}
+
+	/**
+	 * The method to set the value to forecastCategory
+	 * @param forecastCategory A Long representing the forecastCategory
+	 */
+	public void setForecastCategory(Long forecastCategory)
+	{
+		 this.forecastCategory = forecastCategory;
+
+		 this.keyModified.put("forecast_category", 1);
+
+	}
+
+	/**
+	 * The method to get the value of actualValue
+	 * @return A String representing the actualValue
+	 */
+	public String getActualValue()
+	{
+		return  this.actualValue;
+
+	}
+
+	/**
+	 * The method to set the value to actualValue
+	 * @param actualValue A String representing the actualValue
+	 */
+	public void setActualValue(String actualValue)
+	{
+		 this.actualValue = actualValue;
+
+		 this.keyModified.put("actual_value", 1);
+
+	}
+
+	/**
+	 * The method to get the value of id
+	 * @return A Long representing the id
+	 */
+	public Long getId()
+	{
+		return  this.id;
+
+	}
+
+	/**
+	 * The method to set the value to id
+	 * @param id A Long representing the id
+	 */
+	public void setId(Long id)
+	{
+		 this.id = id;
+
+		 this.keyModified.put("id", 1);
+
+	}
+
+	/**
+	 * The method to get the value of forecastType
+	 * @return A String representing the forecastType
+	 */
+	public String getForecastType()
+	{
+		return  this.forecastType;
+
+	}
+
+	/**
+	 * The method to set the value to forecastType
+	 * @param forecastType A String representing the forecastType
+	 */
+	public void setForecastType(String forecastType)
+	{
+		 this.forecastType = forecastType;
+
+		 this.keyModified.put("forecast_type", 1);
 
 	}
 
@@ -114,28 +230,6 @@ public class PickListValue implements Model
 	}
 
 	/**
-	 * The method to get the value of actualValue
-	 * @return A String representing the actualValue
-	 */
-	public String getActualValue()
-	{
-		return  this.actualValue;
-
-	}
-
-	/**
-	 * The method to set the value to actualValue
-	 * @param actualValue A String representing the actualValue
-	 */
-	public void setActualValue(String actualValue)
-	{
-		 this.actualValue = actualValue;
-
-		 this.keyModified.put("actual_value", 1);
-
-	}
-
-	/**
 	 * The method to get the value of sysRefName
 	 * @return A String representing the sysRefName
 	 */
@@ -176,28 +270,6 @@ public class PickListValue implements Model
 		 this.type = type;
 
 		 this.keyModified.put("type", 1);
-
-	}
-
-	/**
-	 * The method to get the value of id
-	 * @return A Long representing the id
-	 */
-	public Long getId()
-	{
-		return  this.id;
-
-	}
-
-	/**
-	 * The method to set the value to id
-	 * @param id A Long representing the id
-	 */
-	public void setId(Long id)
-	{
-		 this.id = id;
-
-		 this.keyModified.put("id", 1);
 
 	}
 

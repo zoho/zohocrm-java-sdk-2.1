@@ -223,6 +223,10 @@ public class NotesOperations
 
 		public static final Param<String> FIELDS = new Param<String>("fields", "com.zoho.crm.api.Notes.GetNotesParam");
 
+		public static final Param<String> SORT_ORDER = new Param<String>("sort_order", "com.zoho.crm.api.Notes.GetNotesParam");
+
+		public static final Param<String> SORT_BY = new Param<String>("sort_by", "com.zoho.crm.api.Notes.GetNotesParam");
+
 	}
 
 	public static class GetNotesHeader

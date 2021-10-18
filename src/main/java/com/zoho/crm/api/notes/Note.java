@@ -22,6 +22,8 @@ public class Note implements Model
 
 	private Boolean editable;
 
+	private String sharingPermission;
+
 	private String seModule;
 
 	private Boolean isSharedToClient;
@@ -174,6 +176,28 @@ public class Note implements Model
 		 this.editable = editable;
 
 		 this.keyModified.put("$editable", 1);
+
+	}
+
+	/**
+	 * The method to get the value of sharingPermission
+	 * @return A String representing the sharingPermission
+	 */
+	public String getSharingPermission()
+	{
+		return  this.sharingPermission;
+
+	}
+
+	/**
+	 * The method to set the value to sharingPermission
+	 * @param sharingPermission A String representing the sharingPermission
+	 */
+	public void setSharingPermission(String sharingPermission)
+	{
+		 this.sharingPermission = sharingPermission;
+
+		 this.keyModified.put("$sharing_permission", 1);
 
 	}
 

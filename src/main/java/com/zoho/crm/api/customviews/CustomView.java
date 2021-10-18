@@ -17,6 +17,8 @@ public class CustomView implements Model
 
 	private String displayValue;
 
+	private OffsetDateTime createdTime;
+
 	private String accessType;
 
 	private String category;
@@ -133,6 +135,28 @@ public class CustomView implements Model
 		 this.displayValue = displayValue;
 
 		 this.keyModified.put("display_value", 1);
+
+	}
+
+	/**
+	 * The method to get the value of createdTime
+	 * @return An instance of OffsetDateTime
+	 */
+	public OffsetDateTime getCreatedTime()
+	{
+		return  this.createdTime;
+
+	}
+
+	/**
+	 * The method to set the value to createdTime
+	 * @param createdTime An instance of OffsetDateTime
+	 */
+	public void setCreatedTime(OffsetDateTime createdTime)
+	{
+		 this.createdTime = createdTime;
+
+		 this.keyModified.put("created_time", 1);
 
 	}
 

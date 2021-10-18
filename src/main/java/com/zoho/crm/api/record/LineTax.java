@@ -13,6 +13,8 @@ public class LineTax implements Model
 
 	private Double value;
 
+	private String displayName;
+
 	private HashMap<String, Integer> keyModified = new HashMap<String, Integer>();
 
 
@@ -101,6 +103,28 @@ public class LineTax implements Model
 		 this.value = value;
 
 		 this.keyModified.put("value", 1);
+
+	}
+
+	/**
+	 * The method to get the value of displayName
+	 * @return A String representing the displayName
+	 */
+	public String getDisplayName()
+	{
+		return  this.displayName;
+
+	}
+
+	/**
+	 * The method to set the value to displayName
+	 * @param displayName A String representing the displayName
+	 */
+	public void setDisplayName(String displayName)
+	{
+		 this.displayName = displayName;
+
+		 this.keyModified.put("display_name", 1);
 
 	}
 

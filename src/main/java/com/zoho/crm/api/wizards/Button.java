@@ -24,6 +24,10 @@ public class Button implements Model
 
 	private String backgroundColor;
 
+	private String visibility;
+
+	private Transition transition;
+
 	private HashMap<String, Integer> keyModified = new HashMap<String, Integer>();
 
 
@@ -222,6 +226,50 @@ public class Button implements Model
 		 this.backgroundColor = backgroundColor;
 
 		 this.keyModified.put("background_color", 1);
+
+	}
+
+	/**
+	 * The method to get the value of visibility
+	 * @return A String representing the visibility
+	 */
+	public String getVisibility()
+	{
+		return  this.visibility;
+
+	}
+
+	/**
+	 * The method to set the value to visibility
+	 * @param visibility A String representing the visibility
+	 */
+	public void setVisibility(String visibility)
+	{
+		 this.visibility = visibility;
+
+		 this.keyModified.put("visibility", 1);
+
+	}
+
+	/**
+	 * The method to get the value of transition
+	 * @return An instance of Transition
+	 */
+	public Transition getTransition()
+	{
+		return  this.transition;
+
+	}
+
+	/**
+	 * The method to set the value to transition
+	 * @param transition An instance of Transition
+	 */
+	public void setTransition(Transition transition)
+	{
+		 this.transition = transition;
+
+		 this.keyModified.put("transition", 1);
 
 	}
 

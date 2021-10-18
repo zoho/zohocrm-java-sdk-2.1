@@ -14,6 +14,8 @@ public class Variable implements Model
 
 	private Long id;
 
+	private String source;
+
 	private String type;
 
 	private VariableGroup variableGroup;
@@ -108,6 +110,28 @@ public class Variable implements Model
 		 this.id = id;
 
 		 this.keyModified.put("id", 1);
+
+	}
+
+	/**
+	 * The method to get the value of source
+	 * @return A String representing the source
+	 */
+	public String getSource()
+	{
+		return  this.source;
+
+	}
+
+	/**
+	 * The method to set the value to source
+	 * @param source A String representing the source
+	 */
+	public void setSource(String source)
+	{
+		 this.source = source;
+
+		 this.keyModified.put("source", 1);
 
 	}
 

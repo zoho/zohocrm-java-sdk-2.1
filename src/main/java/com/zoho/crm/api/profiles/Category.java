@@ -12,6 +12,8 @@ public class Category implements Model
 
 	private String name;
 
+	private String module;
+
 	private HashMap<String, Integer> keyModified = new HashMap<String, Integer>();
 
 
@@ -78,6 +80,28 @@ public class Category implements Model
 		 this.name = name;
 
 		 this.keyModified.put("name", 1);
+
+	}
+
+	/**
+	 * The method to get the value of module
+	 * @return A String representing the module
+	 */
+	public String getModule()
+	{
+		return  this.module;
+
+	}
+
+	/**
+	 * The method to set the value to module
+	 * @param module A String representing the module
+	 */
+	public void setModule(String module)
+	{
+		 this.module = module;
+
+		 this.keyModified.put("module", 1);
 
 	}
 

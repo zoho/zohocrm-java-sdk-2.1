@@ -9,6 +9,7 @@ import com.zoho.crm.api.fields.External;
 import com.zoho.crm.api.fields.Formula;
 import com.zoho.crm.api.fields.HistoryTracking;
 import com.zoho.crm.api.fields.Module;
+import com.zoho.crm.api.fields.MultiModuleLookup;
 import com.zoho.crm.api.fields.MultiSelectLookup;
 import com.zoho.crm.api.fields.MultiUserLookup;
 import com.zoho.crm.api.fields.PickListValue;
@@ -81,7 +82,7 @@ public class Field implements Model
 
 	private Boolean businesscardSupported;
 
-	private Map<String, Object> multiModuleLookup;
+	private MultiModuleLookup multiModuleLookup;
 
 	private Currency currency;
 
@@ -90,6 +91,8 @@ public class Field implements Model
 	private Boolean customField;
 
 	private Module lookup;
+
+	private Boolean filterable;
 
 	private Boolean visible;
 
@@ -736,9 +739,9 @@ public class Field implements Model
 
 	/**
 	 * The method to get the value of multiModuleLookup
-	 * @return An instance of Map<String,Object>
+	 * @return An instance of MultiModuleLookup
 	 */
-	public Map<String, Object> getMultiModuleLookup()
+	public MultiModuleLookup getMultiModuleLookup()
 	{
 		return  this.multiModuleLookup;
 
@@ -746,9 +749,9 @@ public class Field implements Model
 
 	/**
 	 * The method to set the value to multiModuleLookup
-	 * @param multiModuleLookup An instance of Map<String,Object>
+	 * @param multiModuleLookup An instance of MultiModuleLookup
 	 */
-	public void setMultiModuleLookup(Map<String, Object> multiModuleLookup)
+	public void setMultiModuleLookup(MultiModuleLookup multiModuleLookup)
 	{
 		 this.multiModuleLookup = multiModuleLookup;
 
@@ -841,6 +844,28 @@ public class Field implements Model
 		 this.lookup = lookup;
 
 		 this.keyModified.put("lookup", 1);
+
+	}
+
+	/**
+	 * The method to get the value of filterable
+	 * @return A Boolean representing the filterable
+	 */
+	public Boolean getFilterable()
+	{
+		return  this.filterable;
+
+	}
+
+	/**
+	 * The method to set the value to filterable
+	 * @param filterable A Boolean representing the filterable
+	 */
+	public void setFilterable(Boolean filterable)
+	{
+		 this.filterable = filterable;
+
+		 this.keyModified.put("filterable", 1);
 
 	}
 

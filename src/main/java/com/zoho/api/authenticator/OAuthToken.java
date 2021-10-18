@@ -20,6 +20,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zoho.api.authenticator.store.TokenStore;
@@ -31,6 +32,9 @@ import com.zoho.crm.api.util.APIHTTPConnector;
 import com.zoho.crm.api.util.Constants;
 import com.zoho.crm.api.util.Utility;
 
+/**
+ * This class maintains the tokens and authenticates every request.
+*/
 public class OAuthToken implements Token
 {
 	private static final Logger LOGGER = Logger.getLogger(SDKLogger.class.getName());
@@ -105,6 +109,43 @@ public class OAuthToken implements Token
 	public void setRefreshToken(String refreshToken)
 	{
 		this.refreshToken = refreshToken;
+	}
+	
+	/**
+	 * This is a setter method to set redirect URL.
+	 * @param redirectURL A String containing the redirect URL.
+	 */
+	public void setRedirectURL(String redirectURL)
+	{
+		this.redirectURL = redirectURL;
+	}
+	
+	/**
+	 * This is a getter method to get OAuth client id.
+	 * @return A String representing the OAuth client id.
+	 */
+	public void setClientId(String clientID)
+	{
+		this.clientID = clientID;
+	}
+
+	/**
+	 * This is a getter method to get OAuth client secret.
+	 * @return A String representing the OAuth client secret.
+	 */
+	public void setClientSecret(String clientSecret)
+	{
+		this.clientSecret = clientSecret;
+	}
+
+	
+	/**
+	 * This is a setter method to set grant token.
+	 * @param grantToken A String containing the grant token.
+	 */
+	public void setGrantToken(String grantToken)
+	{
+		this.grantToken = grantToken;
 	}
 
 	/**
@@ -190,13 +231,20 @@ public class OAuthToken implements Token
 
 		OAuthToken oauthToken;
 		
-		if(this.id != null)
-		{
-			oauthToken = (OAuthToken) store.getTokenById(this.id, this);
+		if (this.accessToken == null)
+        {
+            if(this.id != null)
+			{
+				oauthToken = (OAuthToken) store.getTokenById(this.id, this);
+			}
+			else
+			{
+				oauthToken = (OAuthToken) store.getToken(initializer.getUser(), this);
+			}
 		}
 		else
 		{
-			oauthToken = (OAuthToken) store.getToken(initializer.getUser(), this);
+			oauthToken = this;
 		}
 
 		String token = "";
@@ -205,7 +253,7 @@ public class OAuthToken implements Token
 		{
 			token = this.refreshToken != null ? refreshAccessToken(user, store).getAccessToken() : generateAccessToken(user, store).getAccessToken();
 		}
-		else if ((Long.valueOf(oauthToken.getExpiresIn()) - System.currentTimeMillis()) < 5000)
+		else if (oauthToken.getExpiresIn() != null && (Long.valueOf(oauthToken.getExpiresIn()) - System.currentTimeMillis()) < 5000)//access token will expire in next 5 seconds or less
 		{
 			LOGGER.log(Level.INFO, Constants.REFRESH_TOKEN_MESSAGE);
 			
@@ -275,11 +323,6 @@ public class OAuthToken implements Token
 		
 		requestParams.put(Constants.CLIENT_SECRET, this.clientSecret);
 		
-		if(this.redirectURL != null)
-		{
-			requestParams.put(Constants.REDIRECT_URI, this.redirectURL);
-		}
-		
 		requestParams.put(Constants.GRANT_TYPE, Constants.REFRESH_TOKEN);
 		
 		requestParams.put(Constants.REFRESH_TOKEN, this.refreshToken);
@@ -290,7 +333,10 @@ public class OAuthToken implements Token
 		{
 			parseResponse(response);
 			
-			this.generateId();
+			if(this.id == null)
+			{
+				this.generateId();
+			}
 			
 			store.saveToken(user, this);
 		}
@@ -347,20 +393,27 @@ public class OAuthToken implements Token
 
 	private OAuthToken parseResponse(String response) throws SDKException
 	{
-		JSONObject responseJSON = new JSONObject(response);
-		
-		if (!responseJSON.has(Constants.ACCESS_TOKEN))
+		try 
 		{
-			throw new SDKException(Constants.INVALID_TOKEN_ERROR, responseJSON.has(Constants.ERROR_KEY)? responseJSON.getString(Constants.ERROR_KEY) : Constants.NO_ACCESS_TOKEN_ERROR);
-		}
-		
-		this.setAccessToken(responseJSON.getString(Constants.ACCESS_TOKEN));
-		
-		this.setExpiresIn(String.valueOf(this.getTokenExpiresIn(responseJSON)));
-		
-		if (responseJSON.has(Constants.REFRESH_TOKEN))
+			JSONObject responseJSON = new JSONObject(response);
+			
+			if (!responseJSON.has(Constants.ACCESS_TOKEN))
+			{
+				throw new SDKException(Constants.INVALID_TOKEN_ERROR, responseJSON.has(Constants.ERROR_KEY)? responseJSON.getString(Constants.ERROR_KEY) : Constants.NO_ACCESS_TOKEN_ERROR);
+			}
+			
+			this.setAccessToken(responseJSON.getString(Constants.ACCESS_TOKEN));
+			
+			this.setExpiresIn(String.valueOf(this.getTokenExpiresIn(responseJSON)));
+			
+			if (responseJSON.has(Constants.REFRESH_TOKEN))
+			{
+				this.refreshToken = responseJSON.getString(Constants.REFRESH_TOKEN);
+			}
+	    } 
+		catch (JSONException ex) 
 		{
-			this.refreshToken = responseJSON.getString(Constants.REFRESH_TOKEN);
+			throw new SDKException(Constants.PARSE_RESPONSE, ex);
 		}
 		
 		return this;
@@ -399,7 +452,7 @@ public class OAuthToken implements Token
 	 * @param type An enum containing the given token type.
 	 * @param redirectURL A String containing the OAuth redirect URL.
 	 */
-	private OAuthToken(String clientID, String clientSecret, String grantToken, String refreshToken, String redirectURL, String id)
+	private OAuthToken(String clientID, String clientSecret, String grantToken, String refreshToken, String redirectURL, String id, String accessToken)
 	{
 		this.clientID = clientID;
 		
@@ -410,6 +463,8 @@ public class OAuthToken implements Token
 		this.refreshToken = refreshToken;
 		
 		this.redirectURL = redirectURL;
+
+		this.accessToken = accessToken;
 		
 		this.id = id;
 	}
@@ -420,7 +475,7 @@ public class OAuthToken implements Token
 		
 		String email = Initializer.getInitializer().getUser().getEmail();
 		
-		builder.append("java_").append(email.substring(0, email.indexOf("@"))).append("_");
+		builder.append(Constants.JAVA).append(email.substring(0, email.indexOf("@"))).append("_");
 		
 		builder.append(Initializer.getInitializer().getEnvironment().getName()).append("_");
 		
@@ -436,10 +491,12 @@ public class OAuthToken implements Token
 		private String clientSecret;
 		
 		private String redirectURL;
+
+		private String refreshToken;
 		
 		private String grantToken;
 		
-		private String refreshToken;
+		private String accessToken;
 		
 		private String id;
 		
@@ -488,16 +545,22 @@ public class OAuthToken implements Token
 			
 			return this;
 		}
+
+		public Builder accessToken(String accessToken)
+		{
+			this.accessToken = accessToken;
+			
+			return this;
+		}
 		
 		public OAuthToken build() throws SDKException
 		{
-			if (this.grantToken == null && this.refreshToken == null)
+			if (this.grantToken == null && this.refreshToken == null && this.id == null && this.accessToken == null)
 			{
-				throw new SDKException(Constants.NULL_ERROR,Constants.EXPECTED_TOKEN_TYPES);
+				throw new SDKException(Constants.MANDATORY_VALUE_ERROR, Constants.MANDATORY_KEY_ERROR + "-" + Constants.OAUTH_MANDATORY_KEYS);
 			}
 			
-			return new OAuthToken(this.clientID, this.clientSecret, this.grantToken, this.refreshToken, this.redirectURL, this.id);
+			return new OAuthToken(this.clientID, this.clientSecret, this.grantToken, this.refreshToken, this.redirectURL, this.id, this.accessToken);
 		}
 	}
-
 }

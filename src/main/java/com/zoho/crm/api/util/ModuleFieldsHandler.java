@@ -48,29 +48,24 @@ public class ModuleFieldsHandler
 				@Override
 				public Object getWrappedResponse(Object response, String pack) throws Exception
 				{
-					// TODO Auto-generated method stub
 					return null;
 				}
 				
 				@Override
 				public Object getResponse(Object response, String pack) throws Exception
 				{
-					// TODO Auto-generated method stub
 					return null;
 				}
 				
 				@Override
 				public Object formRequest(Object requestInstance, String pack, Integer instanceNumber, JSONObject memberDetail) throws Exception
 				{
-					// TODO Auto-generated method stub
 					return null;
 				}
 				
 				@Override
 				public void appendToRequest(HttpEntityEnclosingRequestBase requestBase, Object requestObject) throws Exception
 				{
-					// TODO Auto-generated method stub
-					
 				}
 			};
 			
@@ -144,29 +139,24 @@ public class ModuleFieldsHandler
 				@Override
 				public Object getWrappedResponse(Object response, String pack) throws Exception
 				{
-					// TODO Auto-generated method stub
 					return null;
 				}
 				
 				@Override
 				public Object getResponse(Object response, String pack) throws Exception
 				{
-					// TODO Auto-generated method stub
 					return null;
 				}
 				
 				@Override
 				public Object formRequest(Object requestInstance, String pack, Integer instanceNumber, JSONObject memberDetail) throws Exception
 				{
-					// TODO Auto-generated method stub
 					return null;
 				}
 				
 				@Override
 				public void appendToRequest(HttpEntityEnclosingRequestBase requestBase, Object requestObject) throws Exception
 				{
-					// TODO Auto-generated method stub
-					
 				}
 			};
 			
@@ -213,7 +203,7 @@ public class ModuleFieldsHandler
 		{
 			deleteFields(module);
 			
-			Utility.getFields(module);
+			Utility.getFieldsInfo(module, null);
 		}
 		catch (SDKException e)
 		{

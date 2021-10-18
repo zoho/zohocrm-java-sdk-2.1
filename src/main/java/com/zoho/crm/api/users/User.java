@@ -90,6 +90,26 @@ public class User extends Record implements Model
 	}
 
 	/**
+	 * The method to get the value of sortOrderPreference
+	 * @return A String representing the sortOrderPreference
+	 */
+	public String getSortOrderPreference()
+	{
+		return (String) this.getKeyValue("sort_order_preference");
+
+	}
+
+	/**
+	 * The method to set the value to sortOrderPreference
+	 * @param sortOrderPreference A String representing the sortOrderPreference
+	 */
+	public void setSortOrderPreference(String sortOrderPreference)
+	{
+		 this.addKeyValue("sort_order_preference", sortOrderPreference);
+
+	}
+
+	/**
 	 * The method to get the value of city
 	 * @return A String representing the city
 	 */
@@ -386,6 +406,26 @@ public class User extends Record implements Model
 	public void setCountryLocale(String countryLocale)
 	{
 		 this.addKeyValue("country_locale", countryLocale);
+
+	}
+
+	/**
+	 * The method to get the value of sandboxdeveloper
+	 * @return A Boolean representing the sandboxdeveloper
+	 */
+	public Boolean getSandboxdeveloper()
+	{
+		return (Boolean) this.getKeyValue("sandboxDeveloper");
+
+	}
+
+	/**
+	 * The method to set the value to sandboxdeveloper
+	 * @param sandboxdeveloper A Boolean representing the sandboxdeveloper
+	 */
+	public void setSandboxdeveloper(Boolean sandboxdeveloper)
+	{
+		 this.addKeyValue("sandboxDeveloper", sandboxdeveloper);
 
 	}
 
@@ -806,6 +846,26 @@ public class User extends Record implements Model
 	public void setName(String name)
 	{
 		 this.addKeyValue("name", name);
+
+	}
+
+	/**
+	 * The method to get the value of category
+	 * @return A String representing the category
+	 */
+	public String getCategory()
+	{
+		return (String) this.getKeyValue("category");
+
+	}
+
+	/**
+	 * The method to set the value to category
+	 * @param category A String representing the category
+	 */
+	public void setCategory(String category)
+	{
+		 this.addKeyValue("category", category);
 
 	}
 }

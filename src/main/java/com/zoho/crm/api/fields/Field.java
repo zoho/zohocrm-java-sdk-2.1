@@ -63,7 +63,7 @@ public class Field implements Model
 
 	private Boolean businesscardSupported;
 
-	private Map<String, Object> multiModuleLookup;
+	private MultiModuleLookup multiModuleLookup;
 
 	private Currency currency;
 
@@ -73,7 +73,11 @@ public class Field implements Model
 
 	private Module lookup;
 
+	private Boolean filterable;
+
 	private Boolean visible;
+
+	private Boolean displayField;
 
 	private Boolean pickListValuesSortedLexically;
 
@@ -108,8 +112,6 @@ public class Field implements Model
 	private AutoNumber autoNumber;
 
 	private String defaultValue;
-
-	private Integer sectionId;
 
 	private Map<String, Object> validationRule;
 
@@ -700,9 +702,9 @@ public class Field implements Model
 
 	/**
 	 * The method to get the value of multiModuleLookup
-	 * @return An instance of Map<String,Object>
+	 * @return An instance of MultiModuleLookup
 	 */
-	public Map<String, Object> getMultiModuleLookup()
+	public MultiModuleLookup getMultiModuleLookup()
 	{
 		return  this.multiModuleLookup;
 
@@ -710,9 +712,9 @@ public class Field implements Model
 
 	/**
 	 * The method to set the value to multiModuleLookup
-	 * @param multiModuleLookup An instance of Map<String,Object>
+	 * @param multiModuleLookup An instance of MultiModuleLookup
 	 */
-	public void setMultiModuleLookup(Map<String, Object> multiModuleLookup)
+	public void setMultiModuleLookup(MultiModuleLookup multiModuleLookup)
 	{
 		 this.multiModuleLookup = multiModuleLookup;
 
@@ -809,6 +811,28 @@ public class Field implements Model
 	}
 
 	/**
+	 * The method to get the value of filterable
+	 * @return A Boolean representing the filterable
+	 */
+	public Boolean getFilterable()
+	{
+		return  this.filterable;
+
+	}
+
+	/**
+	 * The method to set the value to filterable
+	 * @param filterable A Boolean representing the filterable
+	 */
+	public void setFilterable(Boolean filterable)
+	{
+		 this.filterable = filterable;
+
+		 this.keyModified.put("filterable", 1);
+
+	}
+
+	/**
 	 * The method to get the value of visible
 	 * @return A Boolean representing the visible
 	 */
@@ -827,6 +851,28 @@ public class Field implements Model
 		 this.visible = visible;
 
 		 this.keyModified.put("visible", 1);
+
+	}
+
+	/**
+	 * The method to get the value of displayField
+	 * @return A Boolean representing the displayField
+	 */
+	public Boolean getDisplayField()
+	{
+		return  this.displayField;
+
+	}
+
+	/**
+	 * The method to set the value to displayField
+	 * @param displayField A Boolean representing the displayField
+	 */
+	public void setDisplayField(Boolean displayField)
+	{
+		 this.displayField = displayField;
+
+		 this.keyModified.put("display_field", 1);
 
 	}
 
@@ -1201,28 +1247,6 @@ public class Field implements Model
 		 this.defaultValue = defaultValue;
 
 		 this.keyModified.put("default_value", 1);
-
-	}
-
-	/**
-	 * The method to get the value of sectionId
-	 * @return An Integer representing the sectionId
-	 */
-	public Integer getSectionId()
-	{
-		return  this.sectionId;
-
-	}
-
-	/**
-	 * The method to set the value to sectionId
-	 * @param sectionId An Integer representing the sectionId
-	 */
-	public void setSectionId(Integer sectionId)
-	{
-		 this.sectionId = sectionId;
-
-		 this.keyModified.put("section_id", 1);
 
 	}
 

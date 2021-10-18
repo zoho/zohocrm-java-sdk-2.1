@@ -22,6 +22,8 @@ public class Attachment implements Model
 
 	private Boolean editable;
 
+	private String sharingPermission;
+
 	private String fileId;
 
 	private String type;
@@ -29,6 +31,8 @@ public class Attachment implements Model
 	private String seModule;
 
 	private User modifiedBy;
+
+	private Integer attachmentType;
 
 	private String state;
 
@@ -200,6 +204,28 @@ public class Attachment implements Model
 	}
 
 	/**
+	 * The method to get the value of sharingPermission
+	 * @return A String representing the sharingPermission
+	 */
+	public String getSharingPermission()
+	{
+		return  this.sharingPermission;
+
+	}
+
+	/**
+	 * The method to set the value to sharingPermission
+	 * @param sharingPermission A String representing the sharingPermission
+	 */
+	public void setSharingPermission(String sharingPermission)
+	{
+		 this.sharingPermission = sharingPermission;
+
+		 this.keyModified.put("$sharing_permission", 1);
+
+	}
+
+	/**
 	 * The method to get the value of fileId
 	 * @return A String representing the fileId
 	 */
@@ -284,6 +310,28 @@ public class Attachment implements Model
 		 this.modifiedBy = modifiedBy;
 
 		 this.keyModified.put("Modified_By", 1);
+
+	}
+
+	/**
+	 * The method to get the value of attachmentType
+	 * @return An Integer representing the attachmentType
+	 */
+	public Integer getAttachmentType()
+	{
+		return  this.attachmentType;
+
+	}
+
+	/**
+	 * The method to set the value to attachmentType
+	 * @param attachmentType An Integer representing the attachmentType
+	 */
+	public void setAttachmentType(Integer attachmentType)
+	{
+		 this.attachmentType = attachmentType;
+
+		 this.keyModified.put("$attachment_type", 1);
 
 	}
 

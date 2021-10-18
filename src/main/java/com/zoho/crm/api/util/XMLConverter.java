@@ -12,7 +12,6 @@ public class XMLConverter extends Converter
 	public XMLConverter(CommonAPIHandler commonAPIHandler)
 	{
 		super(commonAPIHandler);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -24,15 +23,12 @@ public class XMLConverter extends Converter
 	@Override
 	public void appendToRequest(HttpEntityEnclosingRequestBase requestBase, Object requestObject) throws Exception
 	{
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Object getWrappedResponse(Object response, String pack) throws Exception
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getResponse(response, pack);
 	}
 	
 	@Override

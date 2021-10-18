@@ -11,7 +11,6 @@ import com.zoho.crm.api.exception.SDKException;
  */
 public class StreamWrapper implements Model
 {
-
 	private String name;
 	
 	private InputStream stream;

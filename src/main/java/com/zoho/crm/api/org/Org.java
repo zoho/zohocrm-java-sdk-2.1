@@ -7,6 +7,8 @@ public class Org implements Model
 {
 	private String country;
 
+	private HierarchyPreference hierarchyPreferences;
+
 	private String photoId;
 
 	private String city;
@@ -65,6 +67,8 @@ public class Org implements Model
 
 	private String primaryEmail;
 
+	private Boolean hipaaComplianceEnabled;
+
 	private String isoCode;
 
 	private HashMap<String, Integer> keyModified = new HashMap<String, Integer>();
@@ -89,6 +93,28 @@ public class Org implements Model
 		 this.country = country;
 
 		 this.keyModified.put("country", 1);
+
+	}
+
+	/**
+	 * The method to get the value of hierarchyPreferences
+	 * @return An instance of HierarchyPreference
+	 */
+	public HierarchyPreference getHierarchyPreferences()
+	{
+		return  this.hierarchyPreferences;
+
+	}
+
+	/**
+	 * The method to set the value to hierarchyPreferences
+	 * @param hierarchyPreferences An instance of HierarchyPreference
+	 */
+	public void setHierarchyPreferences(HierarchyPreference hierarchyPreferences)
+	{
+		 this.hierarchyPreferences = hierarchyPreferences;
+
+		 this.keyModified.put("hierarchy_preferences", 1);
 
 	}
 
@@ -727,6 +753,28 @@ public class Org implements Model
 		 this.primaryEmail = primaryEmail;
 
 		 this.keyModified.put("primary_email", 1);
+
+	}
+
+	/**
+	 * The method to get the value of hipaaComplianceEnabled
+	 * @return A Boolean representing the hipaaComplianceEnabled
+	 */
+	public Boolean getHipaaComplianceEnabled()
+	{
+		return  this.hipaaComplianceEnabled;
+
+	}
+
+	/**
+	 * The method to set the value to hipaaComplianceEnabled
+	 * @param hipaaComplianceEnabled A Boolean representing the hipaaComplianceEnabled
+	 */
+	public void setHipaaComplianceEnabled(Boolean hipaaComplianceEnabled)
+	{
+		 this.hipaaComplianceEnabled = hipaaComplianceEnabled;
+
+		 this.keyModified.put("hipaa_compliance_enabled", 1);
 
 	}
 

@@ -1,6 +1,7 @@
 package com.zoho.crm.api.emailtemplates;
 
 import com.zoho.crm.api.Param;
+import com.zoho.crm.api.ParameterMap;
 import com.zoho.crm.api.exception.SDKException;
 import com.zoho.crm.api.util.APIResponse;
 import com.zoho.crm.api.util.CommonAPIHandler;
@@ -8,25 +9,13 @@ import com.zoho.crm.api.util.Constants;
 
 public class EmailTemplatesOperations
 {
-	private String module;
-
-	/**
-	 * Creates an instance of EmailTemplatesOperations with the given parameters
-	 * @param module A String representing the module
-	 */
-	public EmailTemplatesOperations(String module)
-	{
-		 this.module = module;
-
-
-	}
-
 	/**
 	 * The method to get email templates
+	 * @param paramInstance An instance of ParameterMap
 	 * @return An instance of APIResponse<ResponseHandler>
 	 * @throws SDKException
 	 */
-	public APIResponse<ResponseHandler> getEmailTemplates() throws SDKException
+	public APIResponse<ResponseHandler> getEmailTemplates(ParameterMap paramInstance) throws SDKException
 	{
 		CommonAPIHandler handlerInstance = new CommonAPIHandler();
 
@@ -40,7 +29,7 @@ public class EmailTemplatesOperations
 
 		handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 
-		handlerInstance.addParam(new Param<String>("module", "com.zoho.crm.api.EmailTemplates.GetEmailTemplatesParam"),  this.module);
+		handlerInstance.setParam(paramInstance);
 
 		return handlerInstance.apiCall(ResponseHandler.class, "application/json");
 
@@ -68,16 +57,12 @@ public class EmailTemplatesOperations
 
 		handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 
-		handlerInstance.addParam(new Param<String>("module", "com.zoho.crm.api.EmailTemplates.GetEmailTemplatebyIDParam"),  this.module);
-
 		return handlerInstance.apiCall(ResponseHandler.class, "application/json");
 
 	}
 	public static class GetEmailTemplatesParam
 	{
-	}
+		public static final Param<String> MODULE = new Param<String>("module", "com.zoho.crm.api.EmailTemplates.GetEmailTemplatesParam");
 
-	public static class GetEmailTemplatebyIDParam
-	{
 	}
 }

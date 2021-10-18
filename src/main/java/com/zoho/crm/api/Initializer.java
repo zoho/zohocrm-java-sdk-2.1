@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import com.zoho.api.authenticator.Token;
+import com.zoho.api.authenticator.store.FileStore;
 import com.zoho.api.authenticator.store.TokenStore;
 import com.zoho.api.logger.SDKLogger;
 import com.zoho.api.logger.Logger.Levels;
@@ -20,7 +21,6 @@ import com.zoho.crm.api.dc.DataCenter.Environment;
 import com.zoho.crm.api.exception.SDKException;
 import com.zoho.crm.api.util.Constants;
 import com.zoho.crm.api.util.Utility;
-import com.zoho.crm.api.SDKConfig;
 
 public class Initializer
 {
@@ -58,7 +58,10 @@ public class Initializer
 
 			try
 			{
-				jsonDetails = getJSONDetails();
+				if(jsonDetails == null || jsonDetails.length() == 0)
+				{
+					jsonDetails = getJSONDetails();
+				}
 			}
 			catch (IOException e)
 			{
@@ -121,7 +124,6 @@ public class Initializer
 		    {
 		    	fileContent += line;
 		    }
-			
 		}
 		catch(Exception e)
 		{
@@ -143,7 +145,6 @@ public class Initializer
 			{
 				is.close();
 			}
-			
 		}
 		
 		return new JSONObject(fileContent);
@@ -296,7 +297,7 @@ public class Initializer
 		
 		private com.zoho.api.logger.Logger logger;
 		
-		private String errorMessage = (Initializer.initializer != null)? Constants.SWITCH_USER_ERROR : Constants.INITIALIZATION_ERROR;
+		private String errorMessage = (Initializer.initializer != null) ? Constants.SWITCH_USER_ERROR : Constants.INITIALIZATION_ERROR;
 				
 		public Builder()
 		{
@@ -311,11 +312,10 @@ public class Initializer
 				token = previousInitializer.token;
 				
 				sdkConfig = previousInitializer.sdkConfig;
-				
 			}
 		}
 		
-		public void initialize() throws SDKException
+		public void initialize() throws Exception
 		{
 			Utility.assertNotNull(user, errorMessage, Constants.USER_SIGNATURE_ERROR_MESSAGE);
 			
@@ -323,32 +323,38 @@ public class Initializer
 			
 			Utility.assertNotNull(token, errorMessage, Constants.TOKEN_ERROR_MESSAGE);
 			
-			Utility.assertNotNull(store, errorMessage, Constants.STORE_ERROR_MESSAGE);
-			
-			Utility.assertNotNull(sdkConfig, errorMessage, Constants.SDK_CONFIG_ERROR_MESSAGE);
-			
-			Utility.assertNotNull(resourcePath, errorMessage, Constants.RESOURCE_PATH_ERROR_MESSAGE);
-			
+			if(store == null)
+			{
+				store = new FileStore(System.getProperty("user.dir") + File.separator + Constants.TOKEN_FILE);
+			}
+
+			if(sdkConfig == null)
+			{
+				sdkConfig = new SDKConfig.Builder().build();
+			}
+
+			if(resourcePath == null)
+			{
+				resourcePath = System.getProperty("user.dir");
+			}
+
 			if(logger == null)
 			{
-				logger = new com.zoho.api.logger.Logger.Builder().level(Levels.INFO).filePath(System.getProperty("user.dir") + File.separator + Constants.LOGFILE_NAME).build();
+				logger = new com.zoho.api.logger.Logger.Builder().level(Levels.INFO).filePath(System.getProperty("user.dir") + File.separator + Constants.LOG_FILE_NAME).build();
 			}
-			
+
 			Initializer.initialize(user, environment, token, store, sdkConfig, resourcePath, logger, requestProxy);
 		}
 		
 		public void switchUser() throws SDKException
 		{
 			Utility.assertNotNull(Initializer.initializer, Constants.SDK_UNINITIALIZATION_ERROR, Constants.SDK_UNINITIALIZATION_MESSAGE);
+
+			if(sdkConfig == null)
+			{
+				sdkConfig = new SDKConfig.Builder().build();
+			}
 			
-			Utility.assertNotNull(user, errorMessage, Constants.USER_SIGNATURE_ERROR_MESSAGE);
-			
-			Utility.assertNotNull(environment, errorMessage, Constants.ENVIRONMENT_ERROR_MESSAGE);
-			
-			Utility.assertNotNull(token, errorMessage, Constants.TOKEN_ERROR_MESSAGE);
-						
-			Utility.assertNotNull(sdkConfig, errorMessage, Constants.SDK_CONFIG_ERROR_MESSAGE);
-						
 			Initializer.switchUser(user, environment, token, sdkConfig, requestProxy);
 		}
 		
@@ -370,8 +376,6 @@ public class Initializer
 		
 		public Builder SDKConfig(SDKConfig sdkConfig) throws SDKException
 		{
-			Utility.assertNotNull(sdkConfig, errorMessage, Constants.SDK_CONFIG_ERROR_MESSAGE);
-			
 			this.sdkConfig = sdkConfig;
 			
 			return this;
@@ -386,12 +390,7 @@ public class Initializer
 		
 		public Builder resourcePath(String resourcePath) throws SDKException
 		{
-			if(resourcePath == null || resourcePath.isEmpty())
-			{
-				throw new SDKException(errorMessage, Constants.RESOURCE_PATH_ERROR_MESSAGE);
-			}
-			
-			if(!new File(resourcePath).isDirectory())
+			if(resourcePath != null && !new File(resourcePath).isDirectory())
 			{
 				throw new SDKException(errorMessage, Constants.RESOURCE_PATH_INVALID_ERROR_MESSAGE);
 			}
@@ -412,8 +411,6 @@ public class Initializer
 		
 		public Builder store(TokenStore store) throws SDKException
 		{
-			Utility.assertNotNull(store, errorMessage, Constants.STORE_ERROR_MESSAGE);
-			
 			this.store = store;
 			
 			return this;

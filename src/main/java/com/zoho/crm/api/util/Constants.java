@@ -3,11 +3,8 @@ package com.zoho.crm.api.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 
-import org.json.JSONObject;
+import java.util.logging.Level;
 
 /**
  * This class uses the SDK constants name reference.
@@ -15,12 +12,10 @@ import org.json.JSONObject;
 public class Constants
 {
 	public static final HashMap<String, Level> LOGGER_LEVELS = new HashMap<>();
-	
-	public static final HashMap<String, String> KEY_VS_INVENTORY_MODULE = new HashMap<String,String>();
-	
+		
 	public static final HashMap<String, String> DEFAULT_MODULENAME_VS_APINAME = new HashMap<String,String>();
 	
-	public static final ArrayList<String> PHOTO_SUPPORTED_MODULES = new ArrayList<String>(Arrays.asList("Leads", "Contacts", "Accounts", "Products", "Vendors", "Deals", "Cases", "Solutions"));
+	public static final ArrayList<String> PHOTO_SUPPORTED_MODULES = new ArrayList<String>(Arrays.asList("leads", "contacts", "accounts", "products", "vendors"));
 
 	static
 	{
@@ -41,14 +36,6 @@ public class Constants
 		LOGGER_LEVELS.put("ERROR", Level.SEVERE);
 
 		LOGGER_LEVELS.put("OFF", Level.OFF);
-		
-		KEY_VS_INVENTORY_MODULE.put("Quoted_Items", "quotes");
-		
-		KEY_VS_INVENTORY_MODULE.put("Invoiced_Items", "invoices");
-		
-		KEY_VS_INVENTORY_MODULE.put("Purchase_Items", "purchase_orders");
-		
-		KEY_VS_INVENTORY_MODULE.put("Ordered_Items", "sales_orders");
 		
 		DEFAULT_MODULENAME_VS_APINAME.put("leads", "Leads");
 		
@@ -119,7 +106,7 @@ public class Constants
 
 	public static final String CLIENT_SECRET = "client_secret";
 
-	public static final String REDIRECT_URL = "redirect_uri";
+	public static final String REDIRECT_URL = "redirect_url";
 	
 	public static final String REDIRECT_URI = "redirect_uri";
 
@@ -129,11 +116,13 @@ public class Constants
 
 	public static final String CODE = "code";
 
-	public static final String LOGFILE_NAME = "SDKLogs.log";
+	public static final String LOG_FILE_NAME = "sdk_logs.log";
+	
+	public static final String TOKEN_FILE = "sdk_tokens.txt";
 
 	public static final String ZOHO_SDK = "X-ZOHO-SDK";
 
-	public static final String SDK_VERSION = "4.0.0-beta1";
+	public static final String SDK_VERSION = "1.0.0";
 
 	public static final String TOKEN_STORE = "TOKEN_STORE";
 
@@ -192,6 +181,8 @@ public class Constants
 	public static final String IS_KEY_MODIFIED = "isKeyModified";
 
 	public static final String REQUIRED = "required";
+
+	public static final String DISCOUNT = "DISCOUNT";
 	
 	public static final String REQUIRED_IN_UPDATE = "required_in_update";
 	
@@ -254,6 +245,8 @@ public class Constants
 	public static final String DELETE_FIELD_FILES_ERROR = "Exception in deleting all Fields files : ";
 
 	public static final String SAVE_TOKEN_ERROR = "Exception in saving tokens : ";
+	
+	public static final String PARSE_RESPONSE = "Exception in parsing token response";
 
 	public static final String GET_TOKEN_ERROR = "Exception in getting access token : ";
 
@@ -351,7 +344,7 @@ public class Constants
 
 	public static final String EXCEPTION_JSONDETAILS = "Exception in loading JSONDetails : ";
 
-	public static final String JSON_DETAILS_FILE_PATH = "/JSONDetails.json";
+	public static final String JSON_DETAILS_FILE_PATH = "/resources/JSONDetails.json";
 
 	public static final String EMAIL_REGEX = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
 
@@ -382,8 +375,12 @@ public class Constants
 	public static final String LINE_TAX_NAMESPACE= "com.zoho.crm.api.record.LineTax";
 	
 	public static final ArrayList<String> INVENTORY_MODULES = new ArrayList<String>(Arrays.asList("invoices", "sales_orders","purchase_orders","quotes"));
-	
+
+	public static final ArrayList<String> INVENTORY_MODULES_ITEMS = new ArrayList<String>(Arrays.asList("invoiced_items", "quoted_items","purchase_items","ordered_items"));
+
 	public static final String PRICE_BOOKS = "Price_Books";
+
+	public static final String PRODUCT_NAME = "Product_Name";
 	
 	public static final String EVENTS = "Events";
 	
@@ -418,6 +415,8 @@ public class Constants
 	public static final String LOOKUP = "lookup";
 	
 	public static final String CONSENT_LOOKUP = "consent_lookup";
+
+	public static final String OWNER_LOOKUP = "ownerlookup";
 	
 	public static final String SE_MODULE = "se_module";
 	
@@ -567,9 +566,9 @@ public class Constants
 	
 	public static final String NULL_VALUE_ERROR_MESSAGE = " MUST NOT be null";
 	
-	public static final String PARAM_INSTANCE_NULL_ERROR = "Param<T> Instance MUST NOT be null";
+	public static final String PARAM_INSTANCE_NULL_ERROR = "Param Instance MUST NOT be null";
 	
-	public static final String HEADER_INSTANCE_NULL_ERROR = "Header<T> Instance MUST NOT be null";
+	public static final String HEADER_INSTANCE_NULL_ERROR = "Header Instance MUST NOT be null";
 	
 	public static final String PROXY_SETTINGS = "Proxy settings - ";
 	
@@ -597,7 +596,7 @@ public class Constants
     
     public static final String CRM = "crm";
     
-    public static final String API_VERSION = "v2";
+    public static final String API_VERSION = "v2.1";
     
     public static final String INVALID_MODULE  = "INVALID_MODULE";
     
@@ -637,11 +636,17 @@ public class Constants
 	
 	public static final String TAX_NAMESPACE = "com.zoho.crm.api.record.Tax";
 
+	public static final String LINEITEM_PRODUCT = "com.zoho.crm.api.record.LineItemProduct";
+
 	public static final String PRODUCTS = "Products";
 
 	public static final String TAX = "TAX";
 
 	public static final String TERRITORY = "Territory";
+
+	public static final String JAVA = "java_";
 	
+	public static final ArrayList<String> OAUTH_MANDATORY_KEYS = new ArrayList<String>(Arrays.asList("grantToken", "refreshToken", "id", "accessToken" ));
 	
+	public static final ArrayList<String> SKIP_MODULES = new ArrayList<String>(Arrays.asList("deals"));
 }

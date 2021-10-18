@@ -29,7 +29,6 @@ public class Downloader extends Converter
 	@Override
 	public Object formRequest(Object requestInstance, String pack, Integer instanceNumber, JSONObject memberDetail) throws Exception
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -70,7 +69,7 @@ public class Downloader extends Converter
 		}
 		else
 		{
-			instance = Class.forName(pack).newInstance();
+			instance = Class.forName(pack).getDeclaredConstructor().newInstance();
 			
 			for (String memberName : recordJsonDetails.keySet())
 			{

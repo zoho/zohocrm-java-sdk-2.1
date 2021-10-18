@@ -1,7 +1,6 @@
 package com.zoho.crm.api.record;
 
 import com.zoho.crm.api.layouts.Layout;
-import com.zoho.crm.api.record.InventoryLineItems;
 import com.zoho.crm.api.record.Participants;
 import com.zoho.crm.api.record.PricingDetails;
 import com.zoho.crm.api.record.Record;
@@ -439,6 +438,8 @@ public class Field<T>
 
 		public static final Field<Choice<String>> CARRIER = new Field<Choice<String>>("Carrier");
 
+		public static final Field<List<Record>> QUOTED_ITEMS = new Field<List<Record>>("Quoted_Items");
+
 		public static final Field<Choice<String>> QUOTE_STAGE = new Field<Choice<String>>("Quote_Stage");
 
 		public static final Field<Double> GRAND_TOTAL = new Field<Double>("Grand_Total");
@@ -456,8 +457,6 @@ public class Field<T>
 		public static final Field<Double> SUB_TOTAL = new Field<Double>("Sub_Total");
 
 		public static final Field<String> BILLING_CODE = new Field<String>("Billing_Code");
-
-		public static final Field<List<InventoryLineItems>> PRODUCT_DETAILS = new Field<List<InventoryLineItems>>("Product_Details");
 
 		public static final Field<String> SUBJECT = new Field<String>("Subject");
 
@@ -499,6 +498,8 @@ public class Field<T>
 
 		public static final Field<User> MODIFIED_BY = new Field<User>("Modified_By");
 
+		public static final Field<List<Record>> INVOICED_ITEMS = new Field<List<Record>>("Invoiced_Items");
+
 		public static final Field<String> BILLING_COUNTRY = new Field<String>("Billing_Country");
 
 		public static final Field<Record> ACCOUNT_NAME = new Field<Record>("Account_Name");
@@ -530,8 +531,6 @@ public class Field<T>
 		public static final Field<Long> INVOICE_NUMBER = new Field<Long>("Invoice_Number");
 
 		public static final Field<String> BILLING_CODE = new Field<String>("Billing_Code");
-
-		public static final Field<List<InventoryLineItems>> PRODUCT_DETAILS = new Field<List<InventoryLineItems>>("Product_Details");
 
 		public static final Field<String> SUBJECT = new Field<String>("Subject");
 
@@ -635,6 +634,8 @@ public class Field<T>
 
 		public static final Field<Choice<String>> CARRIER = new Field<Choice<String>>("Carrier");
 
+		public static final Field<List<Record>> ORDERED_ITEMS = new Field<List<Record>>("Ordered_Items");
+
 		public static final Field<Record> QUOTE_NAME = new Field<Record>("Quote_Name");
 
 		public static final Field<Choice<String>> STATUS = new Field<Choice<String>>("Status");
@@ -658,8 +659,6 @@ public class Field<T>
 		public static final Field<Double> SUB_TOTAL = new Field<Double>("Sub_Total");
 
 		public static final Field<String> BILLING_CODE = new Field<String>("Billing_Code");
-
-		public static final Field<List<InventoryLineItems>> PRODUCT_DETAILS = new Field<List<InventoryLineItems>>("Product_Details");
 
 		public static final Field<String> SUBJECT = new Field<String>("Subject");
 
@@ -909,6 +908,8 @@ public class Field<T>
 
 		public static final Field<String> BILLING_COUNTRY = new Field<String>("Billing_Country");
 
+		public static final Field<List<Record>> PURCHASE_ITEMS = new Field<List<Record>>("Purchase_Items");
+
 		public static final Field<Long> ID = new Field<Long>("id");
 
 		public static final Field<Choice<String>> CARRIER = new Field<Choice<String>>("Carrier");
@@ -936,8 +937,6 @@ public class Field<T>
 		public static final Field<Double> SUB_TOTAL = new Field<Double>("Sub_Total");
 
 		public static final Field<String> BILLING_CODE = new Field<String>("Billing_Code");
-
-		public static final Field<List<InventoryLineItems>> PRODUCT_DETAILS = new Field<List<InventoryLineItems>>("Product_Details");
 
 		public static final Field<String> SUBJECT = new Field<String>("Subject");
 

@@ -55,7 +55,6 @@ public class DBStore implements TokenStore
 		this.connectionString = Constants.MYSQL_DRIVER + this.host + ":" + this.portNumber + "/" + this.databaseName + "?allowPublicKeyRetrieval=true&useSSL=false";
 	}
 	
-	
 	public static class Builder
 	{
 		private String userName = Constants.MYSQL_USER_NAME;
@@ -118,7 +117,6 @@ public class DBStore implements TokenStore
 		}
 	}
 
-
 	@Override
 	public Token getToken(UserSignature user, Token token) throws SDKException
 	{
@@ -130,26 +128,33 @@ public class DBStore implements TokenStore
 			{
 				if(token instanceof OAuthToken)
 				{
-					
 					try(Statement statement = connection.createStatement();)
 					{
 						OAuthToken oauthToken = (OAuthToken) token;
 								
-						String query = constructDBQuery(user.getEmail(),oauthToken, false);
+						String query = constructDBQuery(user.getEmail(), oauthToken, false);
 						
 						try(ResultSet result = statement.executeQuery(query);)
 						{
 							while (result.next())
-							{
-								oauthToken = new OAuthToken.Builder().clientID(result.getString(3)).clientSecret(result.getString(4)).grantToken(result.getString(7)).refreshToken(result.getString(5)).redirectURL(result.getString(9)).build() ;
-								
+							{								
 								oauthToken.setId(result.getString(1));
+								
+								oauthToken.setUserMail(result.getString(2));
+								
+								oauthToken.setClientId(result.getString(3));
+								
+								oauthToken.setClientSecret(result.getString(4));
+								
+								oauthToken.setRefreshToken(result.getString(5));
 								
 								oauthToken.setAccessToken(result.getString(6));
 								
+								oauthToken.setGrantToken(result.getString(7));
+								
 								oauthToken.setExpiresIn(String.valueOf(result.getString(8)));
 								
-								oauthToken.setUserMail(result.getString(2));
+								oauthToken.setRedirectURL(result.getString(9));
 								
 								return oauthToken;
 							}
@@ -165,7 +170,6 @@ public class DBStore implements TokenStore
 
 		return null;
 	}
-
 
 	@Override
 	public void saveToken(UserSignature user, Token token) throws SDKException
@@ -215,7 +219,6 @@ public class DBStore implements TokenStore
 		}
 	}
 
-
 	@Override
 	public void deleteToken(Token token) throws SDKException
 	{
@@ -246,7 +249,6 @@ public class DBStore implements TokenStore
 		}
 	}
 
-
 	@Override
 	public List<Token> getTokens() throws SDKException
 	{
@@ -265,17 +267,18 @@ public class DBStore implements TokenStore
 					try(ResultSet result = statement.executeQuery(query);)
 					{
 						while (result.next())
-						{
-							
-							OAuthToken oauthToken = new OAuthToken.Builder().clientID(result.getString(3)).clientSecret(result.getString(4)).grantToken(result.getString(7)).refreshToken(result.getString(5)).redirectURL(result.getString(9)).build() ;
+						{	
+							OAuthToken oauthToken = new OAuthToken.Builder().clientID(result.getString(3)).clientSecret(result.getString(4)).grantToken(result.getString(7)).refreshToken(result.getString(5)).build() ;
 							
 							oauthToken.setId(result.getString(1));
 							
+							oauthToken.setUserMail(result.getString(2));
+																												
 							oauthToken.setAccessToken(result.getString(6));
-							
+														
 							oauthToken.setExpiresIn(String.valueOf(result.getString(8)));
 							
-							oauthToken.setUserMail(result.getString(2));
+							oauthToken.setRedirectURL(result.getString(9));
 							
 							tokens.add(oauthToken);
 						}
@@ -343,7 +346,6 @@ public class DBStore implements TokenStore
 		return queryBuilder.toString();
 	}
 
-
 	@Override
 	public Token getTokenById(String id, Token token) throws SDKException
 	{
@@ -369,15 +371,23 @@ public class DBStore implements TokenStore
 							}
 							do
 							{
-								oauthToken = new OAuthToken.Builder().clientID(result.getString(3)).clientSecret(result.getString(4)).grantToken(result.getString(7)).refreshToken(result.getString(5)).redirectURL(result.getString(9)).build() ;
+								oauthToken.setId(result.getString(1));
 								
-								oauthToken.setId(id);
+								oauthToken.setUserMail(result.getString(2));
+								
+								oauthToken.setClientId(result.getString(3));
+								
+								oauthToken.setClientSecret(result.getString(4));
+								
+								oauthToken.setRefreshToken(result.getString(5));
 								
 								oauthToken.setAccessToken(result.getString(6));
 								
+								oauthToken.setGrantToken(result.getString(7));
+								
 								oauthToken.setExpiresIn(String.valueOf(result.getString(8)));
 								
-								oauthToken.setUserMail(result.getString(2));
+								oauthToken.setRedirectURL(result.getString(9));
 								
 								return oauthToken;
 							} while(result.next());
@@ -397,5 +407,4 @@ public class DBStore implements TokenStore
 
 		return null;
 	}
-
 }
