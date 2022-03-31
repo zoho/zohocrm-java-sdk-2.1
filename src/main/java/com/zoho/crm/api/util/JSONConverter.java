@@ -1024,6 +1024,10 @@ public class JSONConverter extends Converter
 					{
 						matches++;
 					}
+					else if(keyName.equalsIgnoreCase(Constants.COUNT) && type.equalsIgnoreCase(Constants.INTEGER_NAMESPACE))
+					{
+						matches++;
+					}
 					else if (memberDetail.getString(Constants.TYPE).equalsIgnoreCase(Constants.CHOICE_NAMESPACE))
 					{
 						for (Object value : memberDetail.getJSONArray(Constants.VALUES))

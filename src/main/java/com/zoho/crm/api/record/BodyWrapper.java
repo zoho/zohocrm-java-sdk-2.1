@@ -10,6 +10,8 @@ public class BodyWrapper implements Model
 
 	private List<String> trigger;
 
+	private List<String> process;
+
 	private List<String> duplicateCheckFields;
 
 	private String wfTrigger;
@@ -60,6 +62,28 @@ public class BodyWrapper implements Model
 		 this.trigger = trigger;
 
 		 this.keyModified.put("trigger", 1);
+
+	}
+
+	/**
+	 * The method to get the value of process
+	 * @return An instance of List<String>
+	 */
+	public List<String> getProcess()
+	{
+		return  this.process;
+
+	}
+
+	/**
+	 * The method to set the value to process
+	 * @param process An instance of List<String>
+	 */
+	public void setProcess(List<String> process)
+	{
+		 this.process = process;
+
+		 this.keyModified.put("process", 1);
 
 	}
 

@@ -51,7 +51,9 @@ import com.zoho.crm.api.record.ConvertActionResponse;
 import com.zoho.crm.api.record.ConvertActionWrapper;
 
 import com.zoho.crm.api.record.ConvertBodyWrapper;
+
 import com.zoho.crm.api.record.CountHandler;
+
 import com.zoho.crm.api.record.DeletedRecord;
 
 import com.zoho.crm.api.record.DeletedRecordsHandler;
@@ -67,7 +69,9 @@ import com.zoho.crm.api.record.FileBodyWrapper;
 import com.zoho.crm.api.record.FileDetails;
 
 import com.zoho.crm.api.record.FileHandler;
+
 import com.zoho.crm.api.record.ImageUpload;
+
 import com.zoho.crm.api.record.Info;
 
 import com.zoho.crm.api.record.LeadConverter;
@@ -111,13 +115,23 @@ import com.zoho.crm.api.record.ResponseWrapper;
 import com.zoho.crm.api.record.SuccessResponse;
 
 import com.zoho.crm.api.record.SuccessfulConvert;
+
 import com.zoho.crm.api.record.Tax;
-import com.zoho.crm.api.tags.CountWrapper;
+
+import com.zoho.crm.api.record.Territory;
+
+import com.zoho.crm.api.record.CountWrapper;
+
 import com.zoho.crm.api.tags.Tag;
+
 import com.zoho.crm.api.record.RecordOperations.CreateRecordsHeader;
+
 import com.zoho.crm.api.record.RecordOperations.DeleteRecordHeader;
+
 import com.zoho.crm.api.record.RecordOperations.DeleteRecordParam;
+
 import com.zoho.crm.api.record.RecordOperations.DeleteRecordsHeader;
+
 import com.zoho.crm.api.record.RecordOperations.DeleteRecordsParam;
 
 import com.zoho.crm.api.record.RecordOperations.GetDeletedRecordsHeader;
@@ -133,11 +147,17 @@ import com.zoho.crm.api.record.RecordOperations.GetRecordParam;
 import com.zoho.crm.api.record.RecordOperations.GetRecordsHeader;
 
 import com.zoho.crm.api.record.RecordOperations.GetRecordsParam;
+
 import com.zoho.crm.api.record.RecordOperations.SearchRecordsHeader;
+
 import com.zoho.crm.api.record.RecordOperations.SearchRecordsParam;
+
 import com.zoho.crm.api.record.RecordOperations.UpdateRecordHeader;
+
 import com.zoho.crm.api.record.RecordOperations.UpdateRecordsHeader;
+
 import com.zoho.crm.api.record.RecordOperations.UpsertRecordsHeader;
+
 import com.zoho.crm.api.users.User;
 
 import com.zoho.crm.api.util.APIResponse;
@@ -5825,7 +5845,8 @@ public class Record
 		}
 	}
 	
-	public static void getRecordCount() throws Exception {
+	public static void getRecordCount() throws Exception 
+	{
 		//Get instance of RecordOperations Class
 		RecordOperations recordOperations = new RecordOperations();
 		String moduleAPIName = "Leads";
@@ -5863,6 +5884,633 @@ public class Record
 				{
 					//Get the received APIException instance
 					APIException exception = (APIException) countHandler;
+					
+					//Get the Status
+					System.out.println("Status: " + exception.getStatus().getValue());
+					
+					//Get the Code
+					System.out.println("Code: " + exception.getCode().getValue());
+					
+					System.out.println("Details: " );
+					
+					//Get the details map
+					for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+					{
+						//Get each value in the map
+						System.out.println(entry.getKey() + ": " + entry.getValue());
+					}
+					
+					//Get the Message
+					System.out.println("Message: " + exception.getMessage().getValue());
+				}
+			}
+			else
+			{//If response is not as expected
+				
+				//Get model object from response
+				Model responseObject = response.getModel();
+				
+				//Get the response object's class
+				Class<? extends Model> clas = responseObject.getClass();
+				
+				//Get all declared fields of the response class
+				java.lang.reflect.Field[] fields = clas.getDeclaredFields();
+				
+				for(java.lang.reflect.Field field : fields)
+				{
+					//Get each value
+					System.out.println(field.getName() + ":" + field.get(responseObject));
+				}
+			}
+		}
+	}
+
+	public static void assignTerritoriesToMultipleRecords(String moduleAPIName) throws Exception
+	{
+		//API Name of the module to assignTerritoriesToMultipleRecords
+		//String moduleAPIName = "Leads";
+		
+		//Get instance of RecordOperations Class
+		RecordOperations recordOperations = new RecordOperations();
+		
+		//Get instance of BodyWrapper Class that will contain the request body
+		BodyWrapper request = new BodyWrapper();
+		
+		
+		//List of Record instances
+		List<com.zoho.crm.api.record.Record> records = new ArrayList<com.zoho.crm.api.record.Record>();
+		
+		//Get instance of Record Class
+		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
+		
+		record1.setId(3477061000012107002l);
+	
+		/*
+		 * Call addKeyValue method that takes two arguments
+		 * 1 -> A string that is the Field's API Name
+		 * 2 -> Value
+		 */
+		
+		Territory territory = new Territory();
+		
+		territory.setId(34770613051397l);
+		
+		record1.addKeyValue("Territories", new ArrayList<Territory>(Arrays.asList(territory)));
+		
+		//Add Record instance to the list
+		records.add(record1);
+		
+		//Set the list to Records in BodyWrapper instance
+		request.setData(records);
+		
+		//Call assignTerritoriesToMultipleRecords method that takes ModuleAPIName and  BodyWrapper instance as parameter.
+		APIResponse<ActionHandler> response = recordOperations.assignTerritoriesToMultipleRecords(moduleAPIName, request);
+		
+		if(response != null)
+		{
+			//Get the status code from response
+			System.out.println("Status Code: " + response.getStatusCode());
+			
+			//Check if expected response is received
+			if(response.isExpected())
+			{
+				//Get object from response
+				ActionHandler actionHandler = response.getObject();
+				
+				if(actionHandler instanceof ActionWrapper)
+				{
+					//Get the received ActionWrapper instance
+					ActionWrapper actionWrapper = (ActionWrapper) actionHandler;
+					
+					//Get the list of obtained ActionResponse instances
+					List<ActionResponse> actionResponses = actionWrapper.getData();
+					
+					for(ActionResponse actionResponse : actionResponses)
+					{
+						//Check if the request is successful
+						if(actionResponse instanceof SuccessResponse)
+						{
+							//Get the received SuccessResponse instance
+							SuccessResponse successResponse = (SuccessResponse)actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + successResponse.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + successResponse.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : successResponse.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + successResponse.getMessage().getValue());
+						}
+						//Check if the request returned an exception
+						else if(actionResponse instanceof APIException)
+						{
+							//Get the received APIException instance
+							APIException exception = (APIException) actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + exception.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + exception.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + exception.getMessage().getValue());
+						}
+					}
+				}
+				//Check if the request returned an exception
+				else if(actionHandler instanceof APIException)
+				{
+					//Get the received APIException instance
+					APIException exception = (APIException) actionHandler;
+					
+					//Get the Status
+					System.out.println("Status: " + exception.getStatus().getValue());
+					
+					//Get the Code
+					System.out.println("Code: " + exception.getCode().getValue());
+					
+					System.out.println("Details: " );
+					
+					//Get the details map
+					for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+					{
+						//Get each value in the map
+						System.out.println(entry.getKey() + ": " + entry.getValue());
+					}
+					
+					//Get the Message
+					System.out.println("Message: " + exception.getMessage().getValue());
+				}
+			}
+			else
+			{//If response is not as expected
+				
+				//Get model object from response
+				Model responseObject = response.getModel();
+				
+				//Get the response object's class
+				Class<? extends Model> clas = responseObject.getClass();
+				
+				//Get all declared fields of the response class
+				java.lang.reflect.Field[] fields = clas.getDeclaredFields();
+				
+				for(java.lang.reflect.Field field : fields)
+				{
+					//Get each value
+					System.out.println(field.getName() + ":" + field.get(responseObject));
+				}
+			}
+		}
+	}
+
+	public static void assignTerritoryToRecord(String moduleAPIName, Long id) throws Exception
+	{
+		//API Name of the module to assignTerritoryToRecord
+		//String moduleAPIName = "Leads";
+		
+		//Get instance of RecordOperations Class
+		RecordOperations recordOperations = new RecordOperations();
+		
+		//Get instance of BodyWrapper Class that will contain the request body
+		BodyWrapper request = new BodyWrapper();
+		
+		//List of Record instances
+		List<com.zoho.crm.api.record.Record> records = new ArrayList<com.zoho.crm.api.record.Record>();
+		
+		//Get instance of Record Class
+		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
+		
+		/*
+		 * Call addKeyValue method that takes two arguments
+		 * 1 -> A string that is the Field's API Name
+		 * 2 -> Value
+		 */
+		
+		Territory territory = new Territory();
+		
+		territory.setId(34770613051397l);
+		
+		record1.addKeyValue("Territories", new ArrayList<Territory>(Arrays.asList(territory)));
+		
+		//Add Record instance to the list
+		records.add(record1);
+		
+		//Set the list to Records in BodyWrapper instance
+		request.setData(records);
+		
+		//Call assignTerritoryToRecord method that takes ModuleAPIName, id and  BodyWrapper instance as parameter.
+		APIResponse<ActionHandler> response = recordOperations.assignTerritoryToRecord(moduleAPIName, id, request);
+		
+		if(response != null)
+		{
+			//Get the status code from response
+			System.out.println("Status Code: " + response.getStatusCode());
+			
+			//Check if expected response is received
+			if(response.isExpected())
+			{
+				//Get object from response
+				ActionHandler actionHandler = response.getObject();
+				
+				if(actionHandler instanceof ActionWrapper)
+				{
+					//Get the received ActionWrapper instance
+					ActionWrapper actionWrapper = (ActionWrapper) actionHandler;
+					
+					//Get the list of obtained ActionResponse instances
+					List<ActionResponse> actionResponses = actionWrapper.getData();
+					
+					for(ActionResponse actionResponse : actionResponses)
+					{
+						//Check if the request is successful
+						if(actionResponse instanceof SuccessResponse)
+						{
+							//Get the received SuccessResponse instance
+							SuccessResponse successResponse = (SuccessResponse)actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + successResponse.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + successResponse.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : successResponse.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + successResponse.getMessage().getValue());
+						}
+						//Check if the request returned an exception
+						else if(actionResponse instanceof APIException)
+						{
+							//Get the received APIException instance
+							APIException exception = (APIException) actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + exception.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + exception.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + exception.getMessage().getValue());
+						}
+					}
+				}
+				//Check if the request returned an exception
+				else if(actionHandler instanceof APIException)
+				{
+					//Get the received APIException instance
+					APIException exception = (APIException) actionHandler;
+					
+					//Get the Status
+					System.out.println("Status: " + exception.getStatus().getValue());
+					
+					//Get the Code
+					System.out.println("Code: " + exception.getCode().getValue());
+					
+					System.out.println("Details: " );
+					
+					//Get the details map
+					for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+					{
+						//Get each value in the map
+						System.out.println(entry.getKey() + ": " + entry.getValue());
+					}
+					
+					//Get the Message
+					System.out.println("Message: " + exception.getMessage().getValue());
+				}
+			}
+			else
+			{//If response is not as expected
+				
+				//Get model object from response
+				Model responseObject = response.getModel();
+				
+				//Get the response object's class
+				Class<? extends Model> clas = responseObject.getClass();
+				
+				//Get all declared fields of the response class
+				java.lang.reflect.Field[] fields = clas.getDeclaredFields();
+				
+				for(java.lang.reflect.Field field : fields)
+				{
+					//Get each value
+					System.out.println(field.getName() + ":" + field.get(responseObject));
+				}
+			}
+		}
+	}
+	
+	public static void removeTerritoriesFromMultipleRecords(String moduleAPIName) throws Exception
+	{
+		//example
+		//String moduleAPIName = "Leads";
+		//Long recordId = 34770615177002L;
+		
+		//Get instance of RecordOperations Class
+		RecordOperations recordOperations = new RecordOperations();
+		
+		//Get instance of BodyWrapper Class that will contain the request body
+		BodyWrapper request = new BodyWrapper();
+		
+		//List of Record instances
+		List<com.zoho.crm.api.record.Record> records = new ArrayList<com.zoho.crm.api.record.Record>();
+		
+		//Get instance of Record Class
+		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
+		
+		record1.setId(3477061000012107002l);
+	
+		/*
+		 * Call addKeyValue method that takes two arguments
+		 * 1 -> A string that is the Field's API Name
+		 * 2 -> Value
+		 */
+		
+		Territory territory = new Territory();
+		
+		territory.setId(34770613051397l);
+		
+		record1.addKeyValue("Territories", new ArrayList<Territory>(Arrays.asList(territory)));
+		
+		//Add Record instance to the list
+		records.add(record1);
+		
+		//Set the list to Records in BodyWrapper instance
+		request.setData(records);
+		
+		//Call removeTerritoriesFromMultipleRecords method that takes moduleAPIName and BodyWrapper instance as parameter
+		APIResponse<ActionHandler>response = recordOperations.removeTerritoriesFromMultipleRecords(moduleAPIName, request);
+		
+		if(response != null)
+		{
+			//Get the status code from response
+			System.out.println("Status Code: " + response.getStatusCode());
+			
+			//Check if expected response is received
+			if(response.isExpected())
+			{
+				//Get object from response
+				ActionHandler actionHandler = response.getObject();
+				
+				if(actionHandler instanceof ActionWrapper)
+				{
+					//Get the received ActionWrapper instance
+					ActionWrapper actionWrapper = (ActionWrapper) actionHandler;
+					
+					//Get the list of obtained ActionResponse instances
+					List<ActionResponse> actionResponses = actionWrapper.getData();
+					
+					for(ActionResponse actionResponse : actionResponses)
+					{
+						//Check if the request is successful
+						if(actionResponse instanceof SuccessResponse)
+						{
+							//Get the received SuccessResponse instance
+							SuccessResponse successResponse = (SuccessResponse)actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + successResponse.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + successResponse.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : successResponse.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + successResponse.getMessage().getValue());
+						}
+						//Check if the request returned an exception
+						else if(actionResponse instanceof APIException)
+						{
+							//Get the received APIException instance
+							APIException exception = (APIException) actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + exception.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + exception.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + exception.getMessage().getValue());
+						}
+					}
+				}
+				//Check if the request returned an exception
+				else if(actionHandler instanceof APIException)
+				{
+					//Get the received APIException instance
+					APIException exception = (APIException) actionHandler;
+					
+					//Get the Status
+					System.out.println("Status: " + exception.getStatus().getValue());
+					
+					//Get the Code
+					System.out.println("Code: " + exception.getCode().getValue());
+					
+					System.out.println("Details: " );
+					
+					//Get the details map
+					for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+					{
+						//Get each value in the map
+						System.out.println(entry.getKey() + ": " + entry.getValue());
+					}
+					
+					//Get the Message
+					System.out.println("Message: " + exception.getMessage().getValue());
+				}
+			}
+			else
+			{//If response is not as expected
+				
+				//Get model object from response
+				Model responseObject = response.getModel();
+				
+				//Get the response object's class
+				Class<? extends Model> clas = responseObject.getClass();
+				
+				//Get all declared fields of the response class
+				java.lang.reflect.Field[] fields = clas.getDeclaredFields();
+				
+				for(java.lang.reflect.Field field : fields)
+				{
+					//Get each value
+					System.out.println(field.getName() + ":" + field.get(responseObject));
+				}
+			}
+		}
+	}
+	
+	public static void removeTerritoriesFromRecord(String moduleAPIName, Long id) throws Exception
+	{
+		//example
+		//String moduleAPIName = "Leads";
+		//Long recordId = 34770615177002L;
+		
+		//Get instance of RecordOperations Class
+		RecordOperations recordOperations = new RecordOperations();
+		
+		//Get instance of BodyWrapper Class that will contain the request body
+		BodyWrapper request = new BodyWrapper();
+		
+		//List of Record instances
+		List<com.zoho.crm.api.record.Record> records = new ArrayList<com.zoho.crm.api.record.Record>();
+		
+		//Get instance of Record Class
+		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
+	
+		/*
+		 * Call addKeyValue method that takes two arguments
+		 * 1 -> A string that is the Field's API Name
+		 * 2 -> Value
+		 */
+		
+		Territory territory = new Territory();
+		
+		territory.setId(34770613051397l);
+		
+		record1.addKeyValue("Territories", new ArrayList<Territory>(Arrays.asList(territory)));
+		
+		//Add Record instance to the list
+		records.add(record1);
+		
+		//Set the list to Records in BodyWrapper instance
+		request.setData(records);
+		
+		//Call removeTerritoriesFromRecord method that takes moduleAPIName, recordId and BodyWrapper instance as parameter
+		APIResponse<ActionHandler>response = recordOperations.removeTerritoriesFromRecord(moduleAPIName, id, request);
+		
+		if(response != null)
+		{
+			//Get the status code from response
+			System.out.println("Status Code: " + response.getStatusCode());
+			
+			//Check if expected response is received
+			if(response.isExpected())
+			{
+				//Get object from response
+				ActionHandler actionHandler = response.getObject();
+				
+				if(actionHandler instanceof ActionWrapper)
+				{
+					//Get the received ActionWrapper instance
+					ActionWrapper actionWrapper = (ActionWrapper) actionHandler;
+					
+					//Get the list of obtained ActionResponse instances
+					List<ActionResponse> actionResponses = actionWrapper.getData();
+					
+					for(ActionResponse actionResponse : actionResponses)
+					{
+						//Check if the request is successful
+						if(actionResponse instanceof SuccessResponse)
+						{
+							//Get the received SuccessResponse instance
+							SuccessResponse successResponse = (SuccessResponse)actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + successResponse.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + successResponse.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : successResponse.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + successResponse.getMessage().getValue());
+						}
+						//Check if the request returned an exception
+						else if(actionResponse instanceof APIException)
+						{
+							//Get the received APIException instance
+							APIException exception = (APIException) actionResponse;
+							
+							//Get the Status
+							System.out.println("Status: " + exception.getStatus().getValue());
+							
+							//Get the Code
+							System.out.println("Code: " + exception.getCode().getValue());
+							
+							System.out.println("Details: " );
+							
+							//Get the details map
+							for(Map.Entry<String, Object> entry : exception.getDetails().entrySet())
+							{
+								//Get each value in the map
+								System.out.println(entry.getKey() + ": " + entry.getValue());
+							}
+							
+							//Get the Message
+							System.out.println("Message: " + exception.getMessage().getValue());
+						}
+					}
+				}
+				//Check if the request returned an exception
+				else if(actionHandler instanceof APIException)
+				{
+					//Get the received APIException instance
+					APIException exception = (APIException) actionHandler;
 					
 					//Get the Status
 					System.out.println("Status: " + exception.getStatus().getValue());
