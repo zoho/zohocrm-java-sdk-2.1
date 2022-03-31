@@ -613,6 +613,17 @@ public class Test
 			com.zoho.crm.sample.record.Record.massUpdateRecords(moduleAPIName);
 
 			com.zoho.crm.sample.record.Record.getMassUpdateStatus(moduleAPIName, jobId);
+
+			com.zoho.crm.sample.record.Record.getRecordCount();
+			
+			com.zoho.crm.sample.record.Record.assignTerritoriesToMultipleRecords(moduleAPIName);
+			
+			com.zoho.crm.sample.record.Record.assignTerritoryToRecord(moduleAPIName, recordId);
+			
+			com.zoho.crm.sample.record.Record.removeTerritoriesFromMultipleRecords(moduleAPIName);
+			
+			com.zoho.crm.sample.record.Record.removeTerritoriesFromRecord(moduleAPIName, recordId);
+			
 		}
 		catch (Exception ex)
 		{

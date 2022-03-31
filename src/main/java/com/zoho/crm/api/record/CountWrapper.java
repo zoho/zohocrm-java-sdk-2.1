@@ -5,16 +5,16 @@ import java.util.HashMap;
 
 public class CountWrapper implements Model, CountHandler
 {
-	private String count;
+	private Long count;
 
 	private HashMap<String, Integer> keyModified = new HashMap<String, Integer>();
 
 
 	/**
 	 * The method to get the value of count
-	 * @return A String representing the count
+	 * @return A Long representing the count
 	 */
-	public String getCount()
+	public Long getCount()
 	{
 		return  this.count;
 
@@ -22,9 +22,9 @@ public class CountWrapper implements Model, CountHandler
 
 	/**
 	 * The method to set the value to count
-	 * @param count A String representing the count
+	 * @param count A Long representing the count
 	 */
-	public void setCount(String count)
+	public void setCount(Long count)
 	{
 		 this.count = count;
 

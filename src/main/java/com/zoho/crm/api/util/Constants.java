@@ -122,7 +122,7 @@ public class Constants
 
 	public static final String ZOHO_SDK = "X-ZOHO-SDK";
 
-	public static final String SDK_VERSION = "1.0.0";
+	public static final String SDK_VERSION = "2.0.0";
 
 	public static final String TOKEN_STORE = "TOKEN_STORE";
 
@@ -184,7 +184,7 @@ public class Constants
 
 	public static final String DISCOUNT = "DISCOUNT";
 	
-	public static final String REQUIRED_IN_UPDATE = "required_in_update";
+	public static final String REQUIRED_IN_UPDATE = "required-in-update";
 	
 	public static final String PRIMARY = "primary";
 
@@ -363,9 +363,7 @@ public class Constants
 	public static final String MANDATORY_NOT_FOUND = "Mandatory key Not Found";
 	
 	public static final String FIELD_FILE_NAMESPACE = "com.zoho.crm.api.record.FileDetails";
-	
-	public static final String INVENTORY_LINE_ITEMS = "com.zoho.crm.api.record.InventoryLineItems";
-	
+
 	public static final String PRICINGDETAILS = "com.zoho.crm.api.record.PricingDetails";
 	
 	public static final String PARTICIPANTS = "com.zoho.crm.api.record.Participants";
@@ -534,7 +532,7 @@ public class Constants
 
 	public static final String HASHMAP_NAMESPACE = "java.util.HashMap";
 
-	public static final String SKIP_MANDATORY = "skip_mandatory";
+	public static final String SKIP_MANDATORY = "skip-mandatory";
 	
 	public static final String DELETE = "delete";
 	
@@ -649,4 +647,6 @@ public class Constants
 	public static final ArrayList<String> OAUTH_MANDATORY_KEYS = new ArrayList<String>(Arrays.asList("grantToken", "refreshToken", "id", "accessToken" ));
 	
 	public static final ArrayList<String> SKIP_MODULES = new ArrayList<String>(Arrays.asList("deals"));
+	
+	public static final String COUNT = "count";
 }
