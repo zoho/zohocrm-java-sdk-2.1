@@ -1122,6 +1122,15 @@ public class Utility
 
 			return;
 		}
+		else if(keyName.equalsIgnoreCase(Constants.BEST_TIME) && Constants.TASKS.equalsIgnoreCase(moduleAPIName.toLowerCase()))
+		{
+			fieldDetail.put(Constants.NAME, keyName);
+
+			fieldDetail.put(Constants.TYPE, Constants.LIST_NAMESPACE);
+
+			return;
+		}
+		
 		else if(keyName.equalsIgnoreCase(Constants.TAX) && moduleAPIName.toLowerCase() == Constants.PRODUCTS.toLowerCase())
 		{
 			fieldDetail.put(Constants.NAME, keyName);

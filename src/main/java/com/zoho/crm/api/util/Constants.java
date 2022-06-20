@@ -122,7 +122,7 @@ public class Constants
 
 	public static final String ZOHO_SDK = "X-ZOHO-SDK";
 
-	public static final String SDK_VERSION = "2.0.0";
+	public static final String SDK_VERSION = "2.0.1";
 
 	public static final String TOKEN_STORE = "TOKEN_STORE";
 
@@ -649,4 +649,8 @@ public class Constants
 	public static final ArrayList<String> SKIP_MODULES = new ArrayList<String>(Arrays.asList("deals"));
 	
 	public static final String COUNT = "count";
+	
+	public static final String BEST_TIME = "BEST_TIME";
+	
+	public static final String TASKS  = "Tasks";
 }
