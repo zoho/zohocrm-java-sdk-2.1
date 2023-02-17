@@ -52,6 +52,7 @@ public class Test
 		BluePrint();
 		BulkRead();
 		BulkWrite();
+		cancelmeetings();
 		ContactRoles();
 		Currency();
 		CustomView();
@@ -84,7 +85,23 @@ public class Test
 		TestUpload();
 	}
 	
- 	public static void AssignmentRule() 
+	public static void cancelmeetings() {
+		try 
+		{
+			long event_id=440248000000563120l;
+			
+			boolean sendcancelmail=false;
+			
+			com.zoho.crm.sample.cancelmeetings.CancelMeetings.cancelmeetings(event_id,sendcancelmail);
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		
+	}
+
+	public static void AssignmentRule() 
 	{
 		try 
 		{
