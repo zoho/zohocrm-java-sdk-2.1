@@ -845,6 +845,21 @@ public class Record
 		//Get instance of Record Class
 		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
 		
+		//Get the instance of ApplyFeatureExecution Class
+		com.zoho.crm.api.record.ApplyFeatureExecution applyfeature=new com.zoho.crm.api.record.ApplyFeatureExecution();
+		
+		//List of ApplyFeatureExecution instances
+		List<com.zoho.crm.api.record.ApplyFeatureExecution> applyfeaturelist=new ArrayList<com.zoho.crm.api.record.ApplyFeatureExecution>();
+		
+		//Set name to ApplyFeatureExecution instance
+		applyfeature.setName("layout_rules");
+		
+		//add ApplyFeatureExecution instance to the List
+		applyfeaturelist.add(applyfeature);
+		
+		//Set List to the BodyWrapper instance
+		request.setApplyFeatureExecution(applyfeaturelist);
+		
 		/*
 		 * Call addFieldValue method that takes two arguments
 		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
@@ -3120,6 +3135,21 @@ public class Record
 		//Get instance of Record Class
 		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
 		
+		//Get the instance of ApplyFeatureExecution Class
+		com.zoho.crm.api.record.ApplyFeatureExecution applyfeature=new com.zoho.crm.api.record.ApplyFeatureExecution();
+		
+		//List of ApplyFeatureExecution instances
+		List<com.zoho.crm.api.record.ApplyFeatureExecution> applyfeaturelist=new ArrayList<com.zoho.crm.api.record.ApplyFeatureExecution>();
+		
+		//Set name to ApplyFeatureExecution instance
+		applyfeature.setName("layout_rules");
+		
+		//add ApplyFeatureExecution instance to the List
+		applyfeaturelist.add(applyfeature);
+		
+		//Set List to the BodyWrapper instance
+		bodyWrapper.setApplyFeatureExecution(applyfeaturelist);
+		
 		/*
 		 * Call addFieldValue method that takes two arguments
 		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
@@ -3587,6 +3617,21 @@ public class Record
 		//Get instance of Record Class
 		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
 		
+		//Get the instance of ApplyFeatureExecution Class
+		com.zoho.crm.api.record.ApplyFeatureExecution applyfeature=new com.zoho.crm.api.record.ApplyFeatureExecution();
+		
+		//List of ApplyFeatureExecution instances
+		List<com.zoho.crm.api.record.ApplyFeatureExecution> applyfeaturelist=new ArrayList<com.zoho.crm.api.record.ApplyFeatureExecution>();
+		
+		//Set name to ApplyFeatureExecution instance
+		applyfeature.setName("layout_rules");
+		
+		//add ApplyFeatureExecution instance to the List
+		applyfeaturelist.add(applyfeature);
+		
+		//Set List to the BodyWrapper instance
+		request.setApplyFeatureExecution(applyfeaturelist);
+		
 		record1.setId(347706112081001l);
 		
 		/*
@@ -4050,6 +4095,21 @@ public class Record
 		
 		//Get instance of Record Class
 		com.zoho.crm.api.record.Record record1 = new com.zoho.crm.api.record.Record();
+		
+		//Get the instance of ApplyFeatureExecution Class
+		com.zoho.crm.api.record.ApplyFeatureExecution applyfeature=new com.zoho.crm.api.record.ApplyFeatureExecution();
+		
+		//List of ApplyFeatureExecution instances
+		List<com.zoho.crm.api.record.ApplyFeatureExecution> applyfeaturelist=new ArrayList<com.zoho.crm.api.record.ApplyFeatureExecution>();
+		
+		//Set name to ApplyFeatureExecution instance
+		applyfeature.setName("layout_rules");
+		
+		//add ApplyFeatureExecution instance to the List
+		applyfeaturelist.add(applyfeature);
+		
+		//Set List to the BodyWrapper instance
+		request.setApplyFeatureExecution(applyfeaturelist);
 		
 		/*
 		 * Call addFieldValue method that takes two arguments
