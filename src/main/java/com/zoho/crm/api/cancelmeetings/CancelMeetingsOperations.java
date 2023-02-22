@@ -32,7 +32,7 @@ public class CancelMeetingsOperations
 
 		String apiPath = new String();
 
-		apiPath = apiPath.concat("/crm/v4/Events/");
+		apiPath = apiPath.concat("/crm/v2.1/Events/");
 
 		apiPath = apiPath.concat( this.eventId.toString());
 
