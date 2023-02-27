@@ -129,10 +129,15 @@ public class ModuleFieldsHandler
 	 * @param module A string representing the module.
 	 * @throws SDKException 
 	 */
-	private static void deleteFields(String module) throws SDKException
+	public static void deleteFields(String module) throws SDKException
 	{
 		try
 		{
+			if (module == null) 
+			{ 
+				throw new Exception("module should not be null");
+			}
+			
 			Converter converterInstance = new Converter()
 			{
 				
@@ -184,10 +189,12 @@ public class ModuleFieldsHandler
 				}
 			}
 		}
-		catch (Exception e)
+		catch (Exception e) 
 		{
 			SDKException exception = new SDKException(e);
-
+			
+			LOGGER.log(Level.SEVERE, Constants.DELETE_MODULE_FROM_FIELDFILE_ERROR, exception);
+			
 			throw exception;
 		}
 	}
@@ -201,9 +208,15 @@ public class ModuleFieldsHandler
 	{
 		try
 		{
+			if (module == null) 
+			{
+				throw new Exception("module should not be null");
+			}
+			
 			deleteFields(module);
 			
 			Utility.getFieldsInfo(module, null);
+			
 		}
 		catch (SDKException e)
 		{
@@ -215,7 +228,7 @@ public class ModuleFieldsHandler
 		{
 			SDKException exception = new SDKException(e);
 
-			LOGGER.log(Level.SEVERE, Constants.REFRESH_SINGLE_MODULE_FIELDS_ERROR.concat(module), exception);
+			LOGGER.log(Level.SEVERE, Constants.REFRESH_SINGLE_MODULE_FIELDS_ERROR, exception);
 
 			throw exception;
 		}
