@@ -144,7 +144,7 @@ public class Utility
 		if(recordFieldDetails.exists())
 		{
 			JSONObject fieldsJSON = Initializer.getJSON(recordFieldDetailsPath);
-			
+
 			if(fieldsJSON.has(Constants.SDK_MODULE_METADATA) && fieldsJSON.getJSONObject(Constants.SDK_MODULE_METADATA).has(moduleName.toLowerCase()))
 			{
 				return fieldsJSON.getJSONObject(Constants.SDK_MODULE_METADATA).getJSONObject(moduleName.toLowerCase()).getString(Constants.API_NAME);
@@ -224,15 +224,17 @@ public class Utility
 			{
 				resourcesPath.mkdirs();
 			}
-			
-			moduleAPIName = verifyModuleAPIName(moduleAPIName);
-			
-			setHandlerAPIPath(moduleAPIName, handlerInstance);
-
-			if(handlerInstance != null && handlerInstance.getModuleAPIName() == null && ! Constants.SKIP_MODULES.contains(moduleAPIName.toLowerCase())) 
+			if(moduleAPIName!=null) 
 			{
-                return;
-            }
+				moduleAPIName = verifyModuleAPIName(moduleAPIName);
+				
+				setHandlerAPIPath(moduleAPIName, handlerInstance);
+	
+				if(handlerInstance != null && handlerInstance.getModuleAPIName() == null && ! Constants.SKIP_MODULES.contains(moduleAPIName.toLowerCase())) 
+				{
+					return;
+				}
+			}
 
 			recordFieldDetailsPath = getFileName();
 
